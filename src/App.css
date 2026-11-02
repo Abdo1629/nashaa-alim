@@ -232,7 +232,7 @@ body { overflow-x: hidden; }
 .lamp-glow { animation: lamp-pulse 3.2s ease-in-out infinite; }
 .art-note { animation: note-float 5.5s ease-in-out infinite; }
 .note-bottom { animation-delay: 1.4s; }
-@keyframes art-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+@keyframes art-float { 0%,100% { translate:0 0; } 50% { translate:0 -12px; } }
 @keyframes orbit-turn { to { rotate:360deg; } }
 @keyframes book-hover { 0%,100% { translate:0 0; } 50% { translate:0 -8px; } }
 @keyframes lamp-pulse { 0%,100% { opacity:.55; scale:.92; } 50% { opacity:1; scale:1.08; } }
@@ -388,3 +388,28 @@ body { overflow-x: hidden; }
   *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
   .reveal { opacity:1; transform:none; }
 }
+
+/* Repeating official mark used as a restrained brand pattern */
+.hero-bottom-pattern {
+  height:58px;
+  border-top:2px solid #ffa817;
+  background-color:#1d56a8;
+  background-image:url('/data/Official%20Logo%20Nash2%20PNG-02%20(1).png');
+  background-repeat:repeat-x;
+  background-size:74px 74px;
+  background-position:center;
+}
+.hero-bottom-pattern span { display:none; }
+.toolkit-section::before,
+.final-cta::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:url('/data/Official%20Logo%20Nash2%20PNG-02%20(1).png');
+  background-repeat:repeat;
+  background-size:150px 150px;
+  opacity:.035;
+}
+.toolkit-section::before { z-index:0; }
+.final-cta::before { z-index:0; }
