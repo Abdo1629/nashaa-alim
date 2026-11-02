@@ -686,3 +686,21 @@ body { overflow-x: hidden; }
   .challenge-number { font-size: 10px; padding: 6px 7px; }
   .challenge-duration { font-size: 9px; padding: 6px 8px; }
 }
+
+
+/* Production interaction states and keyboard accessibility */
+:where(a, button):focus-visible {
+  outline: 3px solid #ffa817;
+  outline-offset: 3px;
+}
+.menu-toggle:focus-visible,
+.faq-item button:focus-visible {
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:not(.button):hover,
+  .footer-bottom a:hover,
+  .footer-main>a:last-child:hover {
+    color: #ffa817;
+  }
+}
