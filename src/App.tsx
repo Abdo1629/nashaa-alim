@@ -63,33 +63,6 @@ const tools = [
 ]
 
 const faqGroups = [
-  { title: 'المواعيد والجدول الزمني', questions: [
-    'إمتى هتبدأ الدورة؟', 'إمتى هتنتهي الدورة؟', 'مدة الدورة قد إيه؟', 'كام مرة في الأسبوع؟',
-    'إيه مواعيد المحاضرات؟ صباحي ولا مسائي؟', 'هل مواعيد المحاضرات ثابتة؟',
-    'لو المعاد مش مناسب، هل ممكن يتغير؟', 'إيه أيام بث اللايف؟',
-  ]},
-  { title: 'المحاضرات وطريقة الحضور', questions: [
-    'المحاضرات هتكون مباشرة ولا مسجلة؟', 'هنحضر المحاضرات على أي منصة؟ زوم ولا تليجرام؟',
-    'هل هيكون فيه فتح مايك أثناء المحاضرات؟', 'لو فاتتنا محاضرة، هل التسجيل هيكون متاح؟',
-    'هل هيكون فيه لينك يوتيوب للمحاضرات، خاصةً لو الزوم مش متاح في بعض الدول أو بيواجه مشكلات؟',
-    'هل المحتوى هيكون متاح بعد انتهاء الدورة؟', 'هل ينفع نكتفي بمحاضرات م. علاء فقط؟',
-    'هل ينفع أختي أو أخويا اللي مش مشترك في الدورة يسمع معايا؟',
-  ]},
-  { title: 'الاختبارات', questions: [
-    'هل الاختبار هيكون على محاضرات الشيخ علاء وم. عبدالله؟',
-    'هل هنفتح كل الاختبارات في نهاية الدورة؟', 'هل ينفع الاختبار يفضل مفتوح ومش يتقفل؟',
-    'هل فيه اختبارات على كل محاضرة؟', 'هل ممكن نكتفي بالاختبارات الخاصة بمحاضرات م. علاء؟',
-  ]},
-  { title: 'الواجبات والتطبيقات العملية', questions: [
-    'هل فيه واجبات خلال الدورة؟', 'كام مرة هتكون الواجبات؟',
-    'هل الواجبات مرتبطة بكل محاضرة؟', 'هل فيه مهام أو تطبيقات عملية بجانب المحاضرات؟',
-  ]},
-  { title: 'الجروبات والاشتراك', questions: [
-    'هل الأشقاء ممكن يكونوا في جروب واحد مع نفس المشرفة حتى لو اختلفت أعمارهم؟',
-    'هل ينفع أكون أنا وابني في نفس الجروب؟ ولو لا إيه السبب؟',
-    'هل ينفع أرسل محتوى الدورة لشخص غير مشترك؟',
-    'هل ينفع أختي أو أخويا غير المشترك يحضر معايا المحاضرات؟',
-  ]},
 ]
 
 function RegisterLink({ children, className = 'button button-orange' }: { children: ReactNode; className?: string }) {
@@ -108,7 +81,6 @@ function BrandMark({ light = false }: { light?: boolean }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeFaq, setActiveFaq] = useState<string | null>(null)
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -123,7 +95,7 @@ function App() {
 
   useEffect(() => {
     const targets = document.querySelectorAll(
-      '.section-heading, .problem-card, .insight-card, .about-visual, .about-copy, .journey-card, .challenge-card, .toolkit-copy, .tool-item, .transform-table, .mentor-card, .faq-item, .cta-content'
+      '.section-heading, .problem-card, .insight-card, .about-visual, .about-copy, .journey-card, .challenge-card, .toolkit-copy, .tool-item, .mentor-card, .testimonial-card, .cta-content'
     )
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -155,7 +127,7 @@ function App() {
             <a href="#about" onClick={closeMenu}>عن الدورة</a>
             <a href="#journey" onClick={closeMenu}>رحلة التعلّم</a>
             <a href="#challenges" onClick={closeMenu}>التحديات</a>
-            <a href="#faq" onClick={closeMenu}>الأسئلة الشائعة</a>
+            <a href="#impact" onClick={closeMenu}>تجارب المشاركين</a>
             <RegisterLink className="button button-small">قدّم لبطلك</RegisterLink>
           </nav>
         </div>
@@ -188,14 +160,6 @@ function App() {
           </div>
         </div>
         <div className="hero-bottom-pattern" aria-hidden="true"><span>نَشْء　•　نَشْء　•　نَشْء　•　نَشْء　•　نَشْء</span></div>
-      </section>
-
-      <section className="intro-strip">
-        <div className="container intro-inner">
-          <span className="intro-mark"><Icon name="sparkle" size={17} /></span>
-          <p>مش مجرد محاضرات بتتسمع… <strong>دي رحلة بتتحوّل لعادات ومواقف حقيقية جوه البيت.</strong></p>
-          <span className="intro-mark"><Icon name="sparkle" size={17} /></span>
-        </div>
       </section>
 
       <section className="section problem-section">
@@ -231,11 +195,6 @@ function App() {
             <h2>نبدأ من <span className="highlight-word">الجذور</span>… ونحوّل المعاني لتطبيق</h2>
             <p>دورة «عالِم» برنامج تربوي وتدريبي أونلاين تابع لمبادرة «نشء لنحيا بنور». اتقدمت قبل كده مرتين، وبتفتح دلوقتي باب الانضمام للدفعة الثالثة.</p>
             <p>من خلال لقاءات تفاعلية وتحديات مكتوبة، الطفل بيتعلّم عن العلم والوقت والأدب والهمة، وبعدها يطبّق اللي اتعلمه في حياته اليومية.</p>
-            <div className="about-stats">
-              <div><strong>7</strong><span>محاضرات تفاعلية</span></div>
-              <div><strong>5</strong><span>تحديات عملية</span></div>
-              <div><strong>2</strong><span>مستويان عمريان</span></div>
-            </div>
             <div className="age-levels">
               <div><span className="level-number">01</span><div><strong>من 7 إلى 10 سنوات</strong><small>خيال، رسم، وتشجيع مباشر</small></div></div>
               <div><span className="level-number">02</span><div><strong>من 10 إلى 14 سنة</strong><small>تخطيط ذاتي، تركيز، وضبط النفس</small></div></div>
@@ -292,24 +251,6 @@ function App() {
         </div>
       </section>
 
-      <section className="section transformation-section">
-        <div className="container">
-          <div className="section-heading centered">
-            <span className="eyebrow">الهدف من الرحلة</span>
-            <h2>خطوات صغيرة… <span className="highlight-word">وفروق يلاحظها البيت</span></h2>
-          </div>
-          <div className="transform-table">
-            <div className="transform-head"><span>بدل ما يكون…</span><span>نساعده يبقى…</span></div>
-            <div className="transform-row"><p>بيأجل المذاكرة وبيزهق بسرعة.</p><p><b><Icon name="arrow" size={14} /></b> يبدأ بنفسه جلسة تركيز ويجرب تحدي الـ 25 دقيقة.</p></div>
-            <div className="transform-row"><p>يومه بيتقسم بين المشتتات من غير خطة.</p><p><b>●</b> يعرف قيمة وقته ويستخدم مخططه اليومي.</p></div>
-            <div className="transform-row"><p>محتاج تذكير مستمر بالأدب والمساعدة.</p><p><b>●</b> يتدرّب على الكلمة الطيبة والمبادرة في البيت.</p></div>
-            <div className="transform-row"><p>بينسى يتابع صلاته وأذكاره.</p><p><b>●</b> يستخدم جدول متابعة يساعده يثبت على عاداته.</p></div>
-            <div className="transform-row"><p>مش عارف يختار قدوة أو هدف يلهمه.</p><p><b>●</b> يتعرف على نماذج من تاريخنا ويبني طموحه.</p></div>
-          </div>
-          <p className="transform-footnote">دي أهداف ومهارات بتساعد الدورة الطفل يتدرّب عليها؛ والنتائج بتختلف من طفل للتاني حسب ظروفه ومشاركته.</p>
-        </div>
-      </section>
-
       <section className="section mentors-section">
         <div className="container">
           <div className="section-heading centered">
@@ -343,42 +284,11 @@ function App() {
               <span className="testimonial-source">ولي أمر أحد المشاركين</span>
             </article>
             <article className="testimonial-card">
-              <span className="testimonial-kicker">من ولي أمر</span>
-              <Icon name="quote" size={25} />
-              <p>«ابني استفاد كتير، وكان متشوق يسمع المحاضرة الأخيرة. الحمد لله اتنقل نقلة جميلة، وبدأ يطبّق اللي اتعلمه. جزاكم الله خيرًا على مجهودكم.»</p>
-              <span className="testimonial-source">ولي أمر أحد المشاركين</span>
-            </article>
-            <article className="testimonial-card">
               <span className="testimonial-kicker">رسالة من ولي أمر</span>
               <Icon name="quote" size={25} />
               <p>«كان نفسي الدورة دي تفضل طول السنة مع الأولاد».</p>
               <span className="testimonial-source">ولي أمر أحد المشاركين</span>
             </article>
-          </div>
-          <div className="learning-highlights">
-            <h3>ومن الحاجات اللي الأبطال قالوا إنهم اتعلموها:</h3>
-            <div className="learning-tags">
-              <span>المحافظة على الصلاة</span><span>بر الوالدين</span><span>الأدب مع المعلم</span><span>تنظيم وقت المذاكرة</span><span>اختيار مكان مناسب للمذاكرة</span><span>البُعد عن المشتتات</span><span>الهمة العالية</span><span>ترتيب الأولويات</span><span>الاجتهاد وطلب العلم</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section faq-section" id="faq">
-        <div className="container faq-layout">
-          <div className="faq-intro"><span className="eyebrow">قبل ما تقدّم</span><h2>كل اللي حابب<br /><span className="highlight-word">تعرفه عن الدورة.</span></h2><p>جمعنالك الأسئلة المتوقعة عن المواعيد والمحاضرات والاختبارات والمتابعة. بنحدّث الإجابات أول ما تفاصيل الدفعة تتأكد.</p><RegisterLink className="button button-blue">اسأل فريقنا وسجّل</RegisterLink></div>
-          <div className="faq-groups">
-            {faqGroups.map((group, groupIndex) => <section className="faq-group" key={group.title}>
-              <div className="faq-group-heading"><h3>{group.title}</h3><span>{group.questions.length} أسئلة</span></div>
-              <div className="faq-list">{group.questions.map((question, questionIndex) => {
-                const key = groupIndex + '-' + questionIndex
-                const isOpen = activeFaq === key
-                return <article className={isOpen ? 'faq-item active' : 'faq-item'} key={key}>
-                  <button onClick={() => setActiveFaq(isOpen ? null : key)} aria-expanded={isOpen} aria-controls={`faq-panel-${key}`}><span>{question}</span><i className={isOpen ? 'faq-toggle-icon active' : 'faq-toggle-icon'}><Icon name="plus" size={17} /></i></button>
-                  <div id={`faq-panel-${key}`} className={isOpen ? 'faq-answer is-open' : 'faq-answer'} aria-hidden={!isOpen}><div className="faq-answer-inner"><p>تفاصيل السؤال ده لسه مستنيين تأكيدها من فريق تنظيم الدورة، وهنضيف الإجابة هنا فور وصولها.</p></div></div>
-                </article>
-              })}</div>
-            </section>)}
           </div>
         </div>
       </section>
