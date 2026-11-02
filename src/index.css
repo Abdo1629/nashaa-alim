@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
-:root{font-family:'Cairo',sans-serif;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-optical-sizing:auto}
+:root{font-family:'Cairo',sans-serif;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-optical-sizing:auto;color:#1d56a8;background:#fff;--brand-dark:#1d56a8;--brand-blue:#2d68cc;--brand-beige:#fff5e4;--brand-orange:#ffa817}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-width:320px}
+body{margin:0;min-width:320px;overflow-x:hidden}html{scroll-padding-top:92px}img{max-width:100%;display:block}
 button,a{font:inherit}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer}

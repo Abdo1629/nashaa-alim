@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import './App.css'
 
@@ -6,28 +6,28 @@ const FORM_URL = ''
 
 const curriculum = [
   { tag: 'البداية', title: 'مغارة الكنوز ومفتاح ميراث النبوة', desc: 'رحلة خيالية تفتح للطفل باب حب العلم، وتربط أحلامه الكبيرة بطلب العلم والاقتداء بالأنبياء.' },
-  { tag: 'حب العلم', title: 'ليه العلم أغلى من الذهب؟', desc: 'خمس حقائق تغيّر نظرة الطفل للعلم، وتعرّفه فضل طالب العلم ومكانته.' },
-  { tag: 'إدارة الوقت', title: 'حرب لصوص الوقت', desc: 'يتعرّف على المشتتات، ويتعلّم يخطط ليومه ويوازن بين واجباته وراحته.' },
-  { tag: 'الأدب', title: 'ثلاثية الأدب لطالب العلم', desc: 'أدب مع المعلم، وبرّ بالوالدين، وأدب مع النفس في رحلة طلب العلم.' },
-  { tag: 'التركيز', title: 'إصلاح النفس وحماية التركيز', desc: 'معاني الإخلاص ومراقبة النفس وحفظ اللسان، بلغة قريبة من عالم الطفل.' },
-  { tag: 'الهمة', title: 'همة عالية وقدوات عظيمة', desc: 'يتعرّف على نماذج ملهمة من الصحابة والعلماء، ويتعلم معنى الاستمرار والصبر.' },
-  { tag: 'التوازن', title: 'التوازن الداخلي والتتويج', desc: 'تثبيت العادات، ومراجعة الإنجاز مع المشرفين، والاحتفال بالأبطال.' },
+  { tag: 'قيمة العلم', title: 'العلم وميراث النبوة', desc: 'يتعرّف الطفل قيمة العلم وفضل طلبه، ولماذا يكون العلم النافع أعظم من المال.' },
+  { tag: 'الوقت والتخطيط', title: 'لصوص الوقت الستة', desc: 'يتعرّف على لصوص الوقت الستة، ويتدرّب على التخطيط ليومه وترتيب أولوياته.' },
+  { tag: 'الأدب', title: 'أدب طالب العلم', desc: 'الأدب مع المعلم، وبرّ الوالدين، وحسن التعامل مع النفس؛ في مواقف عملية من حياة الطفل.' },
+  { tag: 'إصلاح النفس', title: 'إصلاح النفس والتركيز', desc: 'معاني إصلاح النفس، ومجاهدة المشتتات، وحماية التركيز في رحلة طلب العلم.' },
+  { tag: 'الهمة العالية', title: 'قدوات صنعت أثرًا', desc: 'نماذج من جابر بن عبدالله، وأبي أيوب الأنصاري، وابن عباس، وأبي هريرة، والإمام الشافعي، وأحمد بن حنبل، والبخاري، والنووي.' },
+  { tag: 'التوازن والتتويج', title: 'التوازن الداخلي وختام الرحلة', desc: 'مراجعة ما اكتسبه الطفل، وتثبيت المعاني والعادات، وختام الرحلة بالتتويج.' },
 ]
 
 const challenges = [
-  { icon: '⏱️', title: 'أبطال الـ 25 دقيقة', duration: 'تحدي التركيز', desc: 'جلسة مذاكرة مركّزة، وبعدها يصمم الطفل شخصية خيالية تشجعه على الاستمرار.' },
-  { icon: '💛', title: 'وبالوالدين إحسانًا', duration: '5 أيام', desc: 'مواقف يومية عملية يتدرّب فيها على الكلمة الطيبة، والمساعدة، والدعاء للوالدين.' },
-  { icon: '🏅', title: 'أسبوع النجاح الذهبي', duration: '7 أيام', desc: 'سبع نجمات للترتيب والتركيز والتعاون والتخطيط والإتقان.' },
-  { icon: '🌍', title: 'لو كنت عالمًا في 2040', duration: '6 أيام', desc: 'بحث عن عالم مسلم، وتخيّل للمستقبل، ومشاركة قصة ملهمة مع الآخرين.' },
-  { icon: '💪', title: 'التوازن الداخلي مع النفس', duration: '6 أيام', desc: 'تدريبات يومية على ضبط النفس، وترتيب الأولويات، وإنجاز ما تم تأجيله.' },
+  { icon: '⏱️', title: 'أبطال الـ 25 دقيقة', duration: 'حسب الفئة العمرية', desc: 'تحدي مذاكرة بتركيز لمدة 25 دقيقة، بمهام مناسبة لكل فئة عمرية، مع نشاط يساعد الطفل على الاستمرار.' },
+  { icon: '💛', title: 'وبالوالدين إحسانًا', duration: '5 أيام', desc: 'تطبيق عملي لمعاني برّ الوالدين مستلهم من قوله تعالى: ﴿وَبِالْوَالِدَيْنِ إِحْسَانًا﴾ [الإسراء: 23]، من خلال مواقف يومية.' },
+  { icon: '🏅', title: 'أسبوع النجاح الذهبي', duration: '7 أيام', desc: 'سبعة أيام من المهام العملية التي تدرب الطفل على الترتيب والتركيز والتعاون والتخطيط والإتقان.' },
+  { icon: '🌍', title: 'لو كنت عالمًا في 2040', duration: '6 أيام', desc: 'يتعرّف على عالم مسلم، ويتخيّل أثره في المستقبل، ويشارك فكرته عن العالم الذي يريد أن يكونه.' },
+  { icon: '💪', title: 'التوازن الداخلي مع النفس', duration: '6 أيام', desc: 'برنامج يومي للتدرّب على ضبط النفس، وترتيب الأولويات، ومراجعة السلوك والاهتمام بما ينفع.' },
 ]
 
 const tools = [
   { icon: '📜', title: 'تعهد طالب العلم', desc: 'وثيقة تربوية يوقّع عليها الطفل بنفسه، وفيها التزاماته مع الله ومعلمه ووالديه ونفسه.' },
-  { icon: '🕌', title: 'صلاتي حياتي', desc: 'جدول متابعة للصلاة والأذكار لمدة 30 يومًا.' },
-  { icon: '📅', title: 'مخطط يومي سعيد', desc: 'مفكرة تساعده يرتّب مهامه ووجباته ووقت الراحة والمكافأة.' },
-  { icon: '🌟', title: 'جدول التحدي الأسبوعي', desc: 'متابعة متوازنة للأذكار والصلاة والمذاكرة ومهمة اليوم.' },
-  { icon: '🎁', title: 'جوائز وهدايا', desc: 'شهادات تقدير وسحب على هدايا للأبطال الملتزمين بالتحديات.' },
+  { icon: '🕌', title: 'صلاتي حياتي', desc: 'متابعة للصلاة لمدة 30 يومًا، مع أذكار الصباح والمساء والنوم.' },
+  { icon: '📅', title: 'مخطط يومي سعيد', desc: 'مخطط يساعد الطفل على ترتيب مهامه ووقت الراحة والمكافأة خلال اليوم.' },
+  { icon: '🌟', title: 'جدول التحدي الأسبوعي', desc: 'جدول متابعة أسبوعي من السبت إلى الجمعة، لتنظيم التحديات والمهام اليومية.' },
+  { icon: '🎁', title: 'جوائز وهدايا', desc: 'شهادات وجوائز وهدايا تُرسل إلى المنزل للمشاركين الذين يُتمّون التحديات.' },
 ]
 
 const faqs = [
@@ -42,10 +42,13 @@ function RegisterLink({ children, className = 'button button-orange' }: { childr
   return <a className={className} href={FORM_URL || '#register'}>{children}<span aria-hidden="true">←</span></a>
 }
 
-function BrandMark() {
-  return <a className="brand" href="#top" aria-label="نشء لنحيا بنور">
-    <span className="brand-symbol">ن</span>
-    <span className="brand-copy"><strong>نَشْء</strong><small>لِنَحْيَا بِنُور</small></span>
+function BrandMark({ light = false }: { light?: boolean }) {
+  const logo = light
+    ? '/data/Official%20Logo%20Nash2%20PNG-02%20(1).png'
+    : '/data/Official%20Logo%20Nash2%20PNG-01.png'
+
+  return <a className={light ? 'brand brand-light' : 'brand'} href="#top" aria-label="نشء لنحيا بنور">
+    <img className="brand-logo" src={logo} alt="نشء – لنحيا بنور" />
   </a>
 }
 
@@ -54,6 +57,30 @@ function App() {
   const [activeFaq, setActiveFaq] = useState<number | null>(0)
 
   const closeMenu = () => setMenuOpen(false)
+
+  useEffect(() => {
+    const targets = document.querySelectorAll(
+      '.section-heading, .problem-card, .insight-card, .about-visual, .about-copy, .journey-card, .challenge-card, .toolkit-copy, .tool-item, .transform-table, .mentor-card, .faq-item, .cta-content'
+    )
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      targets.forEach((target) => target.classList.add('is-visible'))
+      return
+    }
+
+    targets.forEach((target) => target.classList.add('reveal'))
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' })
+
+    targets.forEach((target) => observer.observe(target))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <main id="top">
@@ -97,7 +124,7 @@ function App() {
             <div className="art-cloud cloud-a" /><div className="art-cloud cloud-b" />
           </div>
         </div>
-        <div className="hero-bottom-pattern" />
+        <div className="hero-bottom-pattern" aria-hidden="true"><span>نَشْء　•　نَشْء　•　نَشْء　•　نَشْء　•　نَشْء</span></div>
       </section>
 
       <section className="intro-strip">
@@ -253,7 +280,7 @@ function App() {
       </section>
 
       <footer className="site-footer">
-        <div className="container footer-main"><BrandMark /><p>نزرع قيمة… ونبني همة… ونحيا بنور.</p><a href="https://www.instagram.com/lenahyabnor/" target="_blank" rel="noreferrer">@lenahyabnor ↗</a></div>
+        <div className="container footer-main"><BrandMark light /><p>نزرع قيمة… ونبني همة… ونحيا بنور.</p><a href="https://www.instagram.com/lenahyabnor/" target="_blank" rel="noreferrer">@lenahyabnor ↗</a></div>
         <div className="container footer-bottom"><span>© نشء – لنحيا بنور</span><a href="#top">العودة للأعلى ↑</a></div>
       </footer>
     </main>
