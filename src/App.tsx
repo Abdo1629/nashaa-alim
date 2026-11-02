@@ -290,6 +290,48 @@ function App() {
         </div>
       </section>
 
+      <section className="section testimonials-section" id="impact">
+        <div className="container">
+          <div className="section-heading centered">
+            <span className="eyebrow">أثر التجربة</span>
+            <h2>مش بس بنحكي عن الأثر… <span className="highlight-word">دي تجاربهم</span></h2>
+            <p>كلمات من أطفال وأولياء أمور شاركونا رحلتهم في دورة «عالِم».</p>
+          </div>
+          <div className="testimonial-grid">
+            <article className="testimonial-card testimonial-featured">
+              <span className="testimonial-kicker">من أحد الأبطال</span>
+              <Icon name="quote" size={25} />
+              <p>«الحمد لله بقيت أصلي في وقت الصلاة، واهتميت بالمذاكرة وعرفت قيمة الوقت وأهمية العلم. ولما عرفت إنّي باخد حسنات وأنا بذاكر، بقيت أحب وقت المذاكرة وأهتم بيه.»</p>
+              <span className="testimonial-source">مشاركة من أحد الطلاب</span>
+            </article>
+            <article className="testimonial-card">
+              <span className="testimonial-kicker">من ولي أمر</span>
+              <Icon name="quote" size={25} />
+              <p>«مازن استفاد كتير من الدورة، وحتى أنا كمان استفدت. كان بيستنى وقت المحاضرة، مع إنه مش بيحب يلتزم بحاجة، وزعل جدًا لما الدورة خلصت. وبدأ يهتم بدروسه والمذاكرة ويكون عنده هدف.»</p>
+              <span className="testimonial-source">ولي أمر أحد المشاركين</span>
+            </article>
+            <article className="testimonial-card">
+              <span className="testimonial-kicker">من ولي أمر</span>
+              <Icon name="quote" size={25} />
+              <p>«ابني استفاد كتير، وكان متشوق يسمع المحاضرة الأخيرة. الحمد لله اتنقل نقلة جميلة، وبدأ يطبّق اللي اتعلمه. جزاكم الله خيرًا على مجهودكم.»</p>
+              <span className="testimonial-source">ولي أمر أحد المشاركين</span>
+            </article>
+            <article className="testimonial-card">
+              <span className="testimonial-kicker">رسالة من ولي أمر</span>
+              <Icon name="quote" size={25} />
+              <p>«كان نفسي الدورة دي تفضل طول السنة مع الأولاد».</p>
+              <span className="testimonial-source">ولي أمر أحد المشاركين</span>
+            </article>
+          </div>
+          <div className="learning-highlights">
+            <h3>ومن الحاجات اللي الأبطال قالوا إنهم اتعلموها:</h3>
+            <div className="learning-tags">
+              <span>المحافظة على الصلاة</span><span>بر الوالدين</span><span>الأدب مع المعلم</span><span>تنظيم وقت المذاكرة</span><span>اختيار مكان مناسب للمذاكرة</span><span>البُعد عن المشتتات</span><span>الهمة العالية</span><span>ترتيب الأولويات</span><span>الاجتهاد وطلب العلم</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section faq-section" id="faq">
         <div className="container faq-layout">
           <div className="faq-intro"><span className="eyebrow">قبل ما تقدّم</span><h2>عندك سؤال؟<br /><span className="highlight-word">إحنا نوضّحلك.</span></h2><p>جمعنالك إجابات الأسئلة اللي ممكن تيجي في بالك عن تجربة «عالِم».</p><RegisterLink className="button button-blue">اسأل فريقنا وسجّل</RegisterLink></div>
