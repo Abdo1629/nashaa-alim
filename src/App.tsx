@@ -24,6 +24,7 @@ const iconPaths: Record<string, ReactNode> = {
   minus: <><path d="M5 12h14" /></>,
   arrow: <><path d="M19 12H5m7 7-7-7 7-7" /></>,
   sparkle: <><path d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3Z" /></>,
+  quote: <><path d="M3 11h7v7H3zM14 11h7v7h-7z" /><path d="M10 11c0-4 1.5-6 4-7M21 11c0-4 1.5-6 3-7" /></>,
 }
 
 function Icon({ name, size = 22, className = '' }: { name: string; size?: number; className?: string }) {
@@ -307,7 +308,7 @@ function App() {
             <article className="testimonial-card">
               <span className="testimonial-kicker">من ولي أمر</span>
               <Icon name="quote" size={25} />
-              <p>«مازن استفاد كتير من الدورة، وحتى أنا كمان استفدت. كان بيستنى وقت المحاضرة، مع إنه مش بيحب يلتزم بحاجة، وزعل جدًا لما الدورة خلصت. وبدأ يهتم بدروسه والمذاكرة ويكون عنده هدف.»</p>
+              <p>«ابني استفاد كتير من الدورة، وحتى أنا كمان استفدت. كان بيستنى وقت المحاضرة، مع إنه مش بيحب يلتزم بحاجة، وزعل جدًا لما الدورة خلصت. وبدأ يهتم بدروسه والمذاكرة ويكون عنده هدف.»</p>
               <span className="testimonial-source">ولي أمر أحد المشاركين</span>
             </article>
             <article className="testimonial-card">
