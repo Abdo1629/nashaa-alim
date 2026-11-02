@@ -262,8 +262,8 @@ function App() {
           </div>
           <div className="challenge-grid">
             {challenges.map((item, index) => <article className="challenge-card" key={item.title}>
-              <div className="challenge-card-top"><span className="challenge-icon"><Icon name={item.icon} size={25} /></span><span className="challenge-duration">{item.duration}</span></div>
-              <span className="challenge-number">0{index + 1}</span><h3>{item.title}</h3><p>{item.desc}</p>
+              <div className="challenge-card-top"><span className="challenge-icon"><Icon name={item.icon} size={25} /></span><div className="challenge-meta"><span className="challenge-number">0{index + 1}</span><span className="challenge-duration">{item.duration}</span></div></div>
+              <h3>{item.title}</h3><p>{item.desc}</p>
             </article>)}
           </div>
         </div>
