@@ -513,3 +513,24 @@ body { overflow-x: hidden; }
 .opening-meeting-card h3 { margin:9px 0 5px; color:#1d56a8; font-size:19px; }
 .opening-meeting-card p { margin:0; color:#718098; font-size:13px; line-height:1.9; }
 @media(max-width:700px) { .opening-meeting-card { margin-bottom:18px; padding:18px; } .opening-meeting-card h3 { font-size:16px; } .opening-meeting-card p { font-size:11px; } }
+
+/* Real participant feedback */
+.testimonials-section { background:#f7f9fc; }
+.testimonial-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:34px; }
+.testimonial-card { position:relative; padding:26px; border:1px solid #e7edf5; border-radius:20px; background:#fff; box-shadow:0 8px 26px rgba(21,52,92,.045); }
+.testimonial-card > svg { color:#f0a21b; margin:10px 0 4px; }
+.testimonial-kicker { display:inline-flex; padding:6px 11px; border-radius:30px; background:#fff3dc; color:#956013; font-size:11px; font-weight:800; }
+.testimonial-card p { margin:8px 0 18px; color:#34445c; font-size:14px; line-height:2.05; }
+.testimonial-source { display:block; padding-top:12px; border-top:1px solid #edf0f4; color:#8290a3; font-size:11px; font-weight:700; }
+.testimonial-featured { border-color:#d8e5f8; background:linear-gradient(145deg,#fff 0%,#f1f6ff 100%); }
+.learning-highlights { margin-top:30px; padding:24px; border-radius:20px; background:#1d56a8; color:#fff; }
+.learning-highlights h3 { margin:0 0 16px; font-size:17px; }
+.learning-tags { display:flex; flex-wrap:wrap; gap:9px; }
+.learning-tags span { padding:8px 13px; border:1px solid rgba(255,255,255,.25); border-radius:30px; background:rgba(255,255,255,.1); color:#fff; font-size:12px; }
+@media(max-width:700px) {
+ .testimonial-grid { grid-template-columns:1fr; gap:12px; margin-top:24px; }
+ .testimonial-card { padding:20px; border-radius:16px; }
+ .testimonial-card p { font-size:13px; }
+ .learning-highlights { padding:19px; margin-top:20px; }
+ .learning-highlights h3 { font-size:15px; }
+}
