@@ -651,3 +651,38 @@ body { overflow-x: hidden; }
  .faq-intro{padding:16px}
  .faq-group{padding-inline:12px}
 }
+
+
+/* Challenge cards: separate sequence number from duration */
+.challenge-card-top {
+  align-items: center;
+}
+.challenge-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.challenge-number {
+  position: static;
+  inset: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b9bb3;
+  background: #f4f6fa;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .04em;
+  font-weight: 800;
+}
+.challenge-duration {
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .challenge-meta { gap: 6px; }
+  .challenge-number { font-size: 10px; padding: 6px 7px; }
+  .challenge-duration { font-size: 9px; padding: 6px 8px; }
+}
