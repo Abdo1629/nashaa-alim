@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { ReactNode } from 'react'
 import './App.css'
 
 const FORM_URL = ''
@@ -37,7 +38,7 @@ const faqs = [
   { q: 'إزاي أعرف تفاصيل الاشتراك؟', a: 'سجّل بياناتك من خلال نموذج التسجيل، وفريق المبادرة هيتواصل معاك على الواتساب أو التليفون بكل التفاصيل.' },
 ]
 
-function RegisterLink({ children, className = 'button button-orange' }: { children: React.ReactNode; className?: string }) {
+function RegisterLink({ children, className = 'button button-orange' }: { children: ReactNode; className?: string }) {
   return <a className={className} href={FORM_URL || '#register'}>{children}<span aria-hidden="true">←</span></a>
 }
 
