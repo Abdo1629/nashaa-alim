@@ -62,9 +62,6 @@ const tools = [
   { icon: 'calendar', title: 'جدول التحدي الأسبوعي', desc: 'جدول من السبت للجمعة لمتابعة أذكار الصباح والمساء، والصلاة، والمذاكرة، ومهمة اليوم البحثية.' },
 ]
 
-const faqGroups = [
-]
-
 function RegisterLink({ children, className = 'button button-orange' }: { children: ReactNode; className?: string }) {
   return <a className={className} href={FORM_URL || '#register'}>{children}<Icon name="arrow" size={16} /></a>
 }
