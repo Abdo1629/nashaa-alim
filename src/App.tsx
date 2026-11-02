@@ -62,12 +62,34 @@ const tools = [
   { icon: 'calendar', title: 'جدول التحدي الأسبوعي', desc: 'جدول من السبت للجمعة لمتابعة أذكار الصباح والمساء، والصلاة، والمذاكرة، ومهمة اليوم البحثية.' },
 ]
 
-const faqs = [
-  { q: 'هل الدورة أونلاين بالكامل؟ وإزاي ابني بيحضر؟', a: 'أيوة، الدورة أونلاين بالكامل. اللقاءات تفاعلية مباشرة، والتسجيلات وملفات الـ PDF وأوراق العمل بتنزل على جروبات المتابعة الخاصة بالدورة.' },
-  { q: 'لو عندي طفلين بأعمار مختلفة، هل المحتوى مناسب ليهم؟', a: 'المحتوى مناسب للأعمار من 7 لـ 14 سنة. اللقاءات بتتقدم بأسلوب قصصي، ومعاها أنشطة ومهام وتحديات مناسبة للمستويين: من 7 إلى 10 سنوات، ومن 10 إلى 14 سنة.' },
-  { q: 'إزاي بتتم متابعة الطفل؟', a: 'كل مجموعة بيكون ليها مشرف خاص للأولاد أو مشرفة خاصة للبنات، بيتابعوا يوميًا الجداول والتحديات ويشجعوا الأطفال.' },
-  { q: 'إيه مدة الدورة؟', a: 'البرنامج بيضم لقاءات تفاعلية، ومعاها تحديات عملية وجداول يطبقها الطفل في البيت. فريق التواصل هيوضحلك تفاصيل المواعيد والجدول الزمني.' },
-  { q: 'إزاي أعرف تفاصيل الاشتراك؟', a: 'سجّل بياناتك من خلال نموذج التسجيل، وفريق المبادرة هيتواصل معاك على الواتساب أو التليفون بكل التفاصيل.' },
+const faqGroups = [
+  { title: 'المواعيد والجدول الزمني', questions: [
+    'إمتى هتبدأ الدورة؟', 'إمتى هتنتهي الدورة؟', 'مدة الدورة قد إيه؟', 'كام مرة في الأسبوع؟',
+    'إيه مواعيد المحاضرات؟ صباحي ولا مسائي؟', 'هل مواعيد المحاضرات ثابتة؟',
+    'لو المعاد مش مناسب، هل ممكن يتغير؟', 'إيه أيام بث اللايف؟',
+  ]},
+  { title: 'المحاضرات وطريقة الحضور', questions: [
+    'المحاضرات هتكون مباشرة ولا مسجلة؟', 'هنحضر المحاضرات على أي منصة؟ زوم ولا تليجرام؟',
+    'هل هيكون فيه فتح مايك أثناء المحاضرات؟', 'لو فاتتنا محاضرة، هل التسجيل هيكون متاح؟',
+    'هل هيكون فيه لينك يوتيوب للمحاضرات، خاصةً لو الزوم مش متاح في بعض الدول أو بيواجه مشكلات؟',
+    'هل المحتوى هيكون متاح بعد انتهاء الدورة؟', 'هل ينفع نكتفي بمحاضرات م. علاء فقط؟',
+    'هل ينفع أختي أو أخويا اللي مش مشترك في الدورة يسمع معايا؟',
+  ]},
+  { title: 'الاختبارات', questions: [
+    'هل الاختبار هيكون على محاضرات الشيخ علاء وم. عبدالله؟',
+    'هل هنفتح كل الاختبارات في نهاية الدورة؟', 'هل ينفع الاختبار يفضل مفتوح ومش يتقفل؟',
+    'هل فيه اختبارات على كل محاضرة؟', 'هل ممكن نكتفي بالاختبارات الخاصة بمحاضرات م. علاء؟',
+  ]},
+  { title: 'الواجبات والتطبيقات العملية', questions: [
+    'هل فيه واجبات خلال الدورة؟', 'كام مرة هتكون الواجبات؟',
+    'هل الواجبات مرتبطة بكل محاضرة؟', 'هل فيه مهام أو تطبيقات عملية بجانب المحاضرات؟',
+  ]},
+  { title: 'الجروبات والاشتراك', questions: [
+    'هل الأشقاء ممكن يكونوا في جروب واحد مع نفس المشرفة حتى لو اختلفت أعمارهم؟',
+    'هل ينفع أكون أنا وابني في نفس الجروب؟ ولو لا إيه السبب؟',
+    'هل ينفع أرسل محتوى الدورة لشخص غير مشترك؟',
+    'هل ينفع أختي أو أخويا غير المشترك يحضر معايا المحاضرات؟',
+  ]},
 ]
 
 function RegisterLink({ children, className = 'button button-orange' }: { children: ReactNode; className?: string }) {
@@ -86,7 +108,7 @@ function BrandMark({ light = false }: { light?: boolean }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeFaq, setActiveFaq] = useState<number | null>(0)
+  const [activeFaq, setActiveFaq] = useState<string | null>(null)
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -335,11 +357,20 @@ function App() {
 
       <section className="section faq-section" id="faq">
         <div className="container faq-layout">
-          <div className="faq-intro"><span className="eyebrow">قبل ما تقدّم</span><h2>عندك سؤال؟<br /><span className="highlight-word">إحنا نوضّحلك.</span></h2><p>جمعنالك إجابات الأسئلة اللي ممكن تيجي في بالك عن تجربة «عالِم».</p><RegisterLink className="button button-blue">اسأل فريقنا وسجّل</RegisterLink></div>
-          <div className="faq-list">{faqs.map((item, index) => <article className={activeFaq === index ? 'faq-item active' : 'faq-item'} key={item.q}>
-            <button onClick={() => setActiveFaq(activeFaq === index ? null : index)} aria-expanded={activeFaq === index}><span>{item.q}</span><i className={activeFaq === index ? 'faq-toggle-icon active' : 'faq-toggle-icon'}><Icon name="plus" size={17} /></i></button>
-            <div className={activeFaq === index ? 'faq-answer is-open' : 'faq-answer'} aria-hidden={activeFaq !== index}><div className="faq-answer-inner"><p>{item.a}</p></div></div>
-          </article>)}</div>
+          <div className="faq-intro"><span className="eyebrow">قبل ما تقدّم</span><h2>كل اللي حابب<br /><span className="highlight-word">تعرفه عن الدورة.</span></h2><p>جمعنالك الأسئلة المتوقعة عن المواعيد والمحاضرات والاختبارات والمتابعة. بنحدّث الإجابات أول ما تفاصيل الدفعة تتأكد.</p><RegisterLink className="button button-blue">اسأل فريقنا وسجّل</RegisterLink></div>
+          <div className="faq-groups">
+            {faqGroups.map((group, groupIndex) => <section className="faq-group" key={group.title}>
+              <div className="faq-group-heading"><h3>{group.title}</h3><span>{group.questions.length} أسئلة</span></div>
+              <div className="faq-list">{group.questions.map((question, questionIndex) => {
+                const key = groupIndex + '-' + questionIndex
+                const isOpen = activeFaq === key
+                return <article className={isOpen ? 'faq-item active' : 'faq-item'} key={key}>
+                  <button onClick={() => setActiveFaq(isOpen ? null : key)} aria-expanded={isOpen}><span>{question}</span><i className={isOpen ? 'faq-toggle-icon active' : 'faq-toggle-icon'}><Icon name="plus" size={17} /></i></button>
+                  <div className={isOpen ? 'faq-answer is-open' : 'faq-answer'} aria-hidden={!isOpen}><div className="faq-answer-inner"><p>تفاصيل السؤال ده لسه مستنيين تأكيدها من فريق تنظيم الدورة، وهنضيف الإجابة هنا فور وصولها.</p></div></div>
+                </article>
+              })}</div>
+            </section>)}
+          </div>
         </div>
       </section>
 
