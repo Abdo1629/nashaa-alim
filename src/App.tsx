@@ -113,6 +113,15 @@ function App() {
   const closeMenu = () => setMenuOpen(false)
 
   useEffect(() => {
+    if (!menuOpen) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [menuOpen])
+
+  useEffect(() => {
     const targets = document.querySelectorAll(
       '.section-heading, .problem-card, .insight-card, .about-visual, .about-copy, .journey-card, .challenge-card, .toolkit-copy, .tool-item, .transform-table, .mentor-card, .faq-item, .cta-content'
     )
@@ -142,7 +151,7 @@ function App() {
         <div className="container nav-wrap">
           <BrandMark />
           <button className={menuOpen ? 'menu-toggle is-open' : 'menu-toggle'} onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'إغلاق القائمة' : 'فتح القائمة'} aria-expanded={menuOpen} aria-controls="primary-navigation"><Icon name={menuOpen ? 'close' : 'menu'} size={23} /></button>
-          <nav id="primary-navigation" className={menuOpen ? 'nav-links is-open' : 'nav-links'} aria-hidden={!menuOpen && typeof window !== 'undefined' && window.innerWidth <= 700}>
+          <nav id="primary-navigation" className={menuOpen ? 'nav-links is-open' : 'nav-links'}>
             <a href="#about" onClick={closeMenu}>عن الدورة</a>
             <a href="#journey" onClick={closeMenu}>رحلة التعلّم</a>
             <a href="#challenges" onClick={closeMenu}>التحديات</a>
@@ -365,8 +374,8 @@ function App() {
                 const key = groupIndex + '-' + questionIndex
                 const isOpen = activeFaq === key
                 return <article className={isOpen ? 'faq-item active' : 'faq-item'} key={key}>
-                  <button onClick={() => setActiveFaq(isOpen ? null : key)} aria-expanded={isOpen}><span>{question}</span><i className={isOpen ? 'faq-toggle-icon active' : 'faq-toggle-icon'}><Icon name="plus" size={17} /></i></button>
-                  <div className={isOpen ? 'faq-answer is-open' : 'faq-answer'} aria-hidden={!isOpen}><div className="faq-answer-inner"><p>تفاصيل السؤال ده لسه مستنيين تأكيدها من فريق تنظيم الدورة، وهنضيف الإجابة هنا فور وصولها.</p></div></div>
+                  <button onClick={() => setActiveFaq(isOpen ? null : key)} aria-expanded={isOpen} aria-controls={`faq-panel-${key}`}><span>{question}</span><i className={isOpen ? 'faq-toggle-icon active' : 'faq-toggle-icon'}><Icon name="plus" size={17} /></i></button>
+                  <div id={`faq-panel-${key}`} className={isOpen ? 'faq-answer is-open' : 'faq-answer'} aria-hidden={!isOpen}><div className="faq-answer-inner"><p>تفاصيل السؤال ده لسه مستنيين تأكيدها من فريق تنظيم الدورة، وهنضيف الإجابة هنا فور وصولها.</p></div></div>
                 </article>
               })}</div>
             </section>)}
