@@ -505,3 +505,11 @@ body { overflow-x: hidden; }
 @media(prefers-reduced-motion:reduce) {
   .nav-links,.faq-answer,.faq-answer p,.faq-item button i,.faq-item button i svg,.menu-toggle { transition:none !important; }
 }
+
+
+/* Opening meeting is separate from the seven numbered lectures */
+.opening-meeting-card { max-width:760px; margin:0 auto 26px; padding:22px 26px; border:1px solid #e8edf5; border-right:4px solid #ffa817; border-radius:18px; background:#fffaf1; }
+.opening-meeting-card .journey-tag { color:#a86a17; font-size:11px; font-weight:800; }
+.opening-meeting-card h3 { margin:9px 0 5px; color:#1d56a8; font-size:19px; }
+.opening-meeting-card p { margin:0; color:#718098; font-size:13px; line-height:1.9; }
+@media(max-width:700px) { .opening-meeting-card { margin-bottom:18px; padding:18px; } .opening-meeting-card h3 { font-size:16px; } .opening-meeting-card p { font-size:11px; } }
