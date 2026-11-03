@@ -754,7 +754,7 @@ body { overflow-x: hidden; }
   gap: 13px;
   opacity: 0;
   transform: translateY(18px) scale(.88);
-  animation: opening-logo-reveal .95s cubic-bezier(.18,.75,.25,1) .28s forwards;
+  animation: opening-logo-reveal .95s cubic-bezier(.18,.75,.25,1) .28s forwards, opening-brand-exit .55s cubic-bezier(.65,0,.85,.35) 2.45s forwards;
 }
 .opening-logo {
   display: block;
@@ -796,7 +796,7 @@ body { overflow-x: hidden; }
   background: #fff5e4;
   box-shadow: 0 12px 30px rgba(7,30,73,.22);
   opacity: 0;
-  animation: opening-icon-flight 1.2s cubic-bezier(.16,.8,.25,1) var(--delay, .2s) forwards;
+  animation: opening-icon-flight 1.2s cubic-bezier(.16,.8,.25,1) var(--delay, .2s) forwards, opening-icon-flight-out .55s cubic-bezier(.65,0,.85,.35) 2.45s forwards;
 }
 .opening-fly-one { left: 23%; top: 25%; --start-x: -110vw; --start-y: 12vh; --start-rotate: -55deg; --delay: .08s; color: #1d56a8; }
 .opening-fly-two { right: 25%; top: 22%; --start-x: 110vw; --start-y: 15vh; --start-rotate: 65deg; --delay: .22s; color: #d18400; }
@@ -824,6 +824,12 @@ body { overflow-x: hidden; }
 }
 @keyframes opening-exit {
   to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+@keyframes opening-brand-exit {
+  to { opacity: 0; transform: translateY(22px) scale(.82); filter: blur(7px); }
+}
+@keyframes opening-icon-flight-out {
+  to { opacity: 0; transform: translate3d(var(--start-x),var(--start-y),0) rotate(var(--start-rotate)) scale(.35); filter: blur(3px); }
 }
 @media (max-width: 700px) {
   .opening-logo { width: min(66vw, 250px); max-height: 34vh; }
