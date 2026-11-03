@@ -85,7 +85,7 @@ function App() {
       setShowOpening(false)
       return
     }
-    const timeout = window.setTimeout(() => setShowOpening(false), 2600)
+    const timeout = window.setTimeout(() => setShowOpening(false), 3100)
     return () => window.clearTimeout(timeout)
   }, [])
 
