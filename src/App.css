@@ -714,3 +714,96 @@ body { overflow-x: hidden; }
   position: relative;
   z-index: 1;
 }
+
+
+/* First-visit opening: course mark reveal with light educational icon flight. */
+.opening-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(255,255,255,.98) 0%, rgba(255,245,228,.96) 44%, #f5f8fd 100%);
+  animation: opening-exit .55s ease-in 2.02s forwards;
+}
+.opening-brand {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  opacity: 0;
+  transform: translateY(18px) scale(.88);
+  animation: opening-logo-reveal .95s cubic-bezier(.18,.75,.25,1) .28s forwards;
+}
+.opening-logo {
+  display: block;
+  width: clamp(190px, 25vw, 310px);
+  max-height: min(43vh, 300px);
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(29,86,168,.12));
+}
+.opening-brand > span {
+  color: #1d56a8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.opening-fly {
+  --start-x: 0px;
+  --start-y: 0px;
+  --start-rotate: 0deg;
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  color: #1d56a8;
+  border: 1px solid rgba(29,86,168,.13);
+  border-radius: 18px;
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 12px 30px rgba(29,86,168,.09);
+  opacity: 0;
+  animation: opening-icon-flight 1.15s cubic-bezier(.16,.8,.25,1) var(--delay, .2s) forwards;
+}
+.opening-fly-one { left: 23%; top: 25%; --start-x: -150px; --start-y: 100px; --start-rotate: -55deg; --delay: .08s; color: #1d56a8; }
+.opening-fly-two { right: 25%; top: 22%; --start-x: 130px; --start-y: 120px; --start-rotate: 65deg; --delay: .22s; color: #d99736; }
+.opening-fly-three { left: 17%; bottom: 24%; --start-x: -130px; --start-y: -100px; --start-rotate: 45deg; --delay: .34s; color: #d99736; }
+.opening-fly-four { right: 18%; bottom: 23%; --start-x: 150px; --start-y: -100px; --start-rotate: -60deg; --delay: .16s; color: #1d56a8; }
+.opening-fly-five { left: 39%; top: 12%; --start-x: -20px; --start-y: -150px; --start-rotate: 80deg; --delay: .42s; }
+.opening-fly-six { right: 38%; bottom: 12%; --start-x: 30px; --start-y: 150px; --start-rotate: -80deg; --delay: .28s; }
+@keyframes opening-logo-reveal {
+  0% { opacity: 0; transform: translateY(18px) scale(.88); filter: blur(8px); }
+  70% { opacity: 1; transform: translateY(-3px) scale(1.025); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes opening-icon-flight {
+  0% { opacity: 0; transform: translate3d(var(--start-x),var(--start-y),0) rotate(var(--start-rotate)) scale(.35); }
+  72% { opacity: 1; transform: translate3d(0,-7px,0) rotate(-5deg) scale(1.08); }
+  100% { opacity: .92; transform: translate3d(0,0,0) rotate(0) scale(1); }
+}
+@keyframes opening-exit {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+@media (max-width: 700px) {
+  .opening-logo { width: min(66vw, 250px); max-height: 34vh; }
+  .opening-brand { gap: 10px; }
+  .opening-brand > span { font-size: 10px; }
+  .opening-fly { width: 46px; height: 46px; border-radius: 15px; }
+  .opening-fly svg { width: 22px; height: 22px; }
+  .opening-fly-one { left: 9%; top: 27%; --start-x: -90px; --start-y: 80px; }
+  .opening-fly-two { right: 10%; top: 24%; --start-x: 90px; --start-y: 85px; }
+  .opening-fly-three { left: 7%; bottom: 25%; --start-x: -90px; --start-y: -75px; }
+  .opening-fly-four { right: 8%; bottom: 24%; --start-x: 90px; --start-y: -75px; }
+  .opening-fly-five { left: 38%; top: 13%; --start-y: -100px; }
+  .opening-fly-six { right: 36%; bottom: 13%; --start-y: 100px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .opening-screen { display: none; animation: none; }
+  .opening-brand, .opening-fly { animation: none; opacity: 1; transform: none; }
+}
