@@ -716,7 +716,7 @@ body { overflow-x: hidden; }
 }
 
 
-/* First-visit opening: course mark reveal with light educational icon flight. */
+/* First-visit opening: branded blue frame, typewriter label and edge-to-center icon flight. */
 .opening-screen {
   position: fixed;
   inset: 0;
@@ -725,9 +725,25 @@ body { overflow-x: hidden; }
   place-items: center;
   overflow: hidden;
   isolation: isolate;
-  background:
-    radial-gradient(ellipse at 50% 46%, rgba(255,255,255,.98) 0%, rgba(255,245,228,.96) 44%, #f5f8fd 100%);
-  animation: opening-exit .55s ease-in 2.02s forwards;
+  background: linear-gradient(135deg, #1d56a8 0%, #2d68cc 52%, #1d56a8 100%);
+  animation: opening-exit .55s ease-in 2.45s forwards;
+}
+.opening-screen::before {
+  content: '';
+  position: absolute;
+  width: min(76vw, 650px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,245,228,.22), rgba(255,245,228,0) 68%);
+  pointer-events: none;
+}
+.opening-screen::after {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(255,245,228,.2);
+  border-radius: 28px;
+  pointer-events: none;
 }
 .opening-brand {
   position: relative;
@@ -745,13 +761,24 @@ body { overflow-x: hidden; }
   width: clamp(190px, 25vw, 310px);
   max-height: min(43vh, 300px);
   object-fit: contain;
-  filter: drop-shadow(0 14px 28px rgba(29,86,168,.12));
+  filter: drop-shadow(0 14px 28px rgba(7,30,73,.28));
 }
 .opening-brand > span {
-  color: #1d56a8;
-  font-size: 12px;
+  color: #fff5e4;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: .08em;
+}
+.opening-typing {
+  display: inline-block;
+  width: 0;
+  max-width: max-content;
+  overflow: hidden;
+  white-space: nowrap;
+  direction: rtl;
+  border-left: 2px solid #ffa817;
+  padding-left: 3px;
+  animation: opening-typing 1.05s steps(14, end) 1.05s forwards, opening-caret .65s step-end 1.05s 3;
 }
 .opening-fly {
   --start-x: 0px;
@@ -764,28 +791,36 @@ body { overflow-x: hidden; }
   width: 58px;
   height: 58px;
   color: #1d56a8;
-  border: 1px solid rgba(29,86,168,.13);
+  border: 1px solid rgba(255,168,23,.7);
   border-radius: 18px;
-  background: rgba(255,255,255,.82);
-  box-shadow: 0 12px 30px rgba(29,86,168,.09);
+  background: #fff5e4;
+  box-shadow: 0 12px 30px rgba(7,30,73,.22);
   opacity: 0;
-  animation: opening-icon-flight 1.15s cubic-bezier(.16,.8,.25,1) var(--delay, .2s) forwards;
+  animation: opening-icon-flight 1.2s cubic-bezier(.16,.8,.25,1) var(--delay, .2s) forwards;
 }
-.opening-fly-one { left: 23%; top: 25%; --start-x: -150px; --start-y: 100px; --start-rotate: -55deg; --delay: .08s; color: #1d56a8; }
-.opening-fly-two { right: 25%; top: 22%; --start-x: 130px; --start-y: 120px; --start-rotate: 65deg; --delay: .22s; color: #d99736; }
-.opening-fly-three { left: 17%; bottom: 24%; --start-x: -130px; --start-y: -100px; --start-rotate: 45deg; --delay: .34s; color: #d99736; }
-.opening-fly-four { right: 18%; bottom: 23%; --start-x: 150px; --start-y: -100px; --start-rotate: -60deg; --delay: .16s; color: #1d56a8; }
-.opening-fly-five { left: 39%; top: 12%; --start-x: -20px; --start-y: -150px; --start-rotate: 80deg; --delay: .42s; }
-.opening-fly-six { right: 38%; bottom: 12%; --start-x: 30px; --start-y: 150px; --start-rotate: -80deg; --delay: .28s; }
+.opening-fly-one { left: 23%; top: 25%; --start-x: -110vw; --start-y: 12vh; --start-rotate: -55deg; --delay: .08s; color: #1d56a8; }
+.opening-fly-two { right: 25%; top: 22%; --start-x: 110vw; --start-y: 15vh; --start-rotate: 65deg; --delay: .22s; color: #d18400; }
+.opening-fly-three { left: 17%; bottom: 24%; --start-x: -110vw; --start-y: -12vh; --start-rotate: 45deg; --delay: .34s; color: #d18400; }
+.opening-fly-four { right: 18%; bottom: 23%; --start-x: 110vw; --start-y: -12vh; --start-rotate: -60deg; --delay: .16s; color: #1d56a8; }
+.opening-fly-five { left: 39%; top: 12%; --start-x: 0px; --start-y: -110vh; --start-rotate: 80deg; --delay: .42s; }
+.opening-fly-six { right: 38%; bottom: 12%; --start-x: 0px; --start-y: 110vh; --start-rotate: -80deg; --delay: .28s; }
 @keyframes opening-logo-reveal {
   0% { opacity: 0; transform: translateY(18px) scale(.88); filter: blur(8px); }
   70% { opacity: 1; transform: translateY(-3px) scale(1.025); filter: blur(0); }
   100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
+@keyframes opening-typing {
+  from { width: 0; }
+  to { width: 8.8em; }
+}
+@keyframes opening-caret {
+  0%, 100% { border-color: #ffa817; }
+  50% { border-color: transparent; }
+}
 @keyframes opening-icon-flight {
   0% { opacity: 0; transform: translate3d(var(--start-x),var(--start-y),0) rotate(var(--start-rotate)) scale(.35); }
   72% { opacity: 1; transform: translate3d(0,-7px,0) rotate(-5deg) scale(1.08); }
-  100% { opacity: .92; transform: translate3d(0,0,0) rotate(0) scale(1); }
+  100% { opacity: .96; transform: translate3d(0,0,0) rotate(0) scale(1); }
 }
 @keyframes opening-exit {
   to { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -793,17 +828,18 @@ body { overflow-x: hidden; }
 @media (max-width: 700px) {
   .opening-logo { width: min(66vw, 250px); max-height: 34vh; }
   .opening-brand { gap: 10px; }
-  .opening-brand > span { font-size: 10px; }
+  .opening-brand > span { font-size: 11px; }
   .opening-fly { width: 46px; height: 46px; border-radius: 15px; }
   .opening-fly svg { width: 22px; height: 22px; }
-  .opening-fly-one { left: 9%; top: 27%; --start-x: -90px; --start-y: 80px; }
-  .opening-fly-two { right: 10%; top: 24%; --start-x: 90px; --start-y: 85px; }
-  .opening-fly-three { left: 7%; bottom: 25%; --start-x: -90px; --start-y: -75px; }
-  .opening-fly-four { right: 8%; bottom: 24%; --start-x: 90px; --start-y: -75px; }
-  .opening-fly-five { left: 38%; top: 13%; --start-y: -100px; }
-  .opening-fly-six { right: 36%; bottom: 13%; --start-y: 100px; }
+  .opening-fly-one { left: 9%; top: 27%; --start-x: -115vw; --start-y: 8vh; }
+  .opening-fly-two { right: 10%; top: 24%; --start-x: 115vw; --start-y: 8vh; }
+  .opening-fly-three { left: 7%; bottom: 25%; --start-x: -115vw; --start-y: -8vh; }
+  .opening-fly-four { right: 8%; bottom: 24%; --start-x: 115vw; --start-y: -8vh; }
+  .opening-fly-five { left: 38%; top: 13%; --start-y: -115vh; }
+  .opening-fly-six { right: 36%; bottom: 13%; --start-y: 115vh; }
 }
 @media (prefers-reduced-motion: reduce) {
   .opening-screen { display: none; animation: none; }
   .opening-brand, .opening-fly { animation: none; opacity: 1; transform: none; }
+  .opening-typing { width: auto; border: 0; animation: none; }
 }
