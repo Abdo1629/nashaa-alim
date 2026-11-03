@@ -78,6 +78,16 @@ function BrandMark({ light = false }: { light?: boolean }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showOpening, setShowOpening] = useState(true)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setShowOpening(false)
+      return
+    }
+    const timeout = window.setTimeout(() => setShowOpening(false), 2600)
+    return () => window.clearTimeout(timeout)
+  }, [])
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -116,6 +126,18 @@ function App() {
 
   return (
     <main id="top">
+      {showOpening && <div className="opening-screen" aria-hidden="true">
+        <span className="opening-fly opening-fly-one"><Icon name="book" size={30} /></span>
+        <span className="opening-fly opening-fly-two"><Icon name="sparkle" size={24} /></span>
+        <span className="opening-fly opening-fly-three"><Icon name="medal" size={28} /></span>
+        <span className="opening-fly opening-fly-four"><Icon name="scroll" size={26} /></span>
+        <span className="opening-fly opening-fly-five"><Icon name="globe" size={25} /></span>
+        <span className="opening-fly opening-fly-six"><Icon name="books" size={30} /></span>
+        <div className="opening-brand">
+          <img src="/data/عالِم-3.png" alt="" className="opening-logo" />
+          <span>الدفعة الثالثة</span>
+        </div>
+      </div>}
       <header className="site-header">
         <div className="container nav-wrap">
           <BrandMark />
