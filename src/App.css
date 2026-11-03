@@ -849,3 +849,166 @@ body { overflow-x: hidden; }
   .opening-brand, .opening-fly { animation: none; opacity: 1; transform: none; }
   .opening-typing { width: auto; border: 0; animation: none; }
 }
+
+
+/* Introductory lecture video replaces the former blue insight strip. */
+.intro-video-card {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 54px);
+  max-width: 1080px;
+  margin: 42px auto 0;
+  padding: clamp(22px, 4vw, 42px);
+  overflow: hidden;
+  border: 1px solid #e1e9f5;
+  border-radius: 26px;
+  background: linear-gradient(125deg, #fff 0%, #f7f9fd 58%, #fff5e4 100%);
+  box-shadow: 0 18px 48px rgba(20, 55, 105, .09);
+}
+.intro-video-copy { min-width: 0; }
+.intro-video-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #a86a17;
+  font-size: 12px;
+  font-weight: 800;
+}
+.intro-video-kicker svg { color: #ffa817; }
+.intro-video-copy h2 {
+  margin: 15px 0 12px;
+  color: #1d3150;
+  font-size: clamp(25px, 3vw, 36px);
+  line-height: 1.45;
+  font-weight: 900;
+}
+.intro-video-copy h2 span { color: #1d56a8; }
+.intro-video-copy p {
+  max-width: 410px;
+  margin: 0;
+  color: #6d7d94;
+  font-size: 14px;
+  line-height: 2.05;
+}
+.intro-video-duration {
+  display: block;
+  margin-top: 24px;
+  padding-top: 15px;
+  border-top: 1px solid #e3eaf3;
+  color: #8491a4;
+  font-size: 11px;
+  font-weight: 700;
+}
+.intro-video-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 5px solid #fff;
+  border-radius: 19px;
+  background: #153f7d;
+  box-shadow: 0 14px 35px rgba(16, 49, 97, .17);
+}
+.intro-video-frame iframe,
+.intro-video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.intro-video-frame iframe { border: 0; }
+.intro-video-poster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #fff5e4;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(255, 168, 23, .24), transparent 43%),
+    linear-gradient(135deg, #143f7e 0%, #1d56a8 58%, #2d68cc 100%);
+}
+.intro-video-poster::before,
+.intro-video-poster::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 245, 228, .16);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.intro-video-poster::before { width: 68%; aspect-ratio: 1; }
+.intro-video-poster::after { width: 88%; aspect-ratio: 1; }
+.intro-video-poster-mark {
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  border: 1px solid rgba(255, 245, 228, .35);
+  border-radius: 17px;
+  color: #ffa817;
+  background: rgba(255, 255, 255, .1);
+}
+.intro-video-poster-label {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 245, 228, .9);
+  font-size: 12px;
+  font-weight: 800;
+}
+.intro-video-play {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  margin: 1px 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #1d56a8;
+  background: #ffa817;
+  box-shadow: 0 0 0 10px rgba(255, 168, 23, .16), 0 8px 22px rgba(4, 23, 54, .24);
+  cursor: pointer;
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.intro-video-play svg { margin-left: 4px; }
+.intro-video-play:hover {
+  transform: scale(1.08);
+  background: #ffc04d;
+  box-shadow: 0 0 0 14px rgba(255, 168, 23, .14), 0 10px 25px rgba(4, 23, 54, .28);
+}
+.intro-video-play:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 6px;
+}
+.intro-video-play-caption {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+@media(max-width: 700px) {
+  .intro-video-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 26px;
+    padding: 19px;
+    border-radius: 19px;
+  }
+  .intro-video-copy h2 { margin: 10px 0 7px; font-size: 25px; }
+  .intro-video-copy p { font-size: 12px; line-height: 1.9; }
+  .intro-video-duration { margin-top: 15px; padding-top: 11px; font-size: 10px; }
+  .intro-video-frame { grid-row: 1; border-width: 3px; border-radius: 14px; }
+  .intro-video-play { width: 56px; height: 56px; }
+  .intro-video-poster-mark { width: 43px; height: 43px; border-radius: 13px; }
+  .intro-video-poster-mark svg { width: 24px; height: 24px; }
+  .intro-video-poster { gap: 9px; }
+  .intro-video-poster-label { font-size: 10px; }
+  .intro-video-play-caption { font-size: 10px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .intro-video-play { transition: none; }
+}
