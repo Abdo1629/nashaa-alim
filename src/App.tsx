@@ -135,7 +135,7 @@ function App() {
         <span className="opening-fly opening-fly-six"><Icon name="books" size={30} /></span>
         <div className="opening-brand">
           <img src="/data/عالِم-3.png" alt="" className="opening-logo" />
-          <span>الدفعة الثالثة</span>
+          <span className="opening-typing">الدفعة الثالثة</span>
         </div>
       </div>}
       <header className="site-header">
