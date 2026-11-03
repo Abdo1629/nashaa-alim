@@ -79,6 +79,7 @@ function BrandMark({ light = false }: { light?: boolean }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [showOpening, setShowOpening] = useState(true)
+  const [introVideoPlaying, setIntroVideoPlaying] = useState(false)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -194,7 +195,34 @@ function App() {
             <article className="problem-card"><span className="problem-icon"><Icon name="home" size={25} /></span><h3>التعامل محتاج هدوء</h3><p>تأفف وعصبية وقت الطلبات، ومحتاجين نزرع الأدب بالممارسة.</p></article>
             <article className="problem-card"><span className="problem-icon"><Icon name="landmark" size={25} /></span><h3>الصلاة محتاجة متابعة</h3><p>نفسنا الطفل يتعلّق بصلاته ويهتم بيها من قلبه.</p></article>
           </div>
-          <div className="insight-card"><span className="insight-icon"><Icon name="sparkle" /></span><p>الطفل مش محتاج أوامر أكتر… محتاج <strong>يفهم، ويقتنع، ويجرّب بنفسه.</strong></p></div>
+          <div className="intro-video-card" aria-label="المحاضرة التعريفية بدورة عالم">
+            <div className="intro-video-copy">
+              <span className="intro-video-kicker"><Icon name="play" size={15} /> ابدأ من هنا</span>
+              <h2>اتعرّف على دورة <span>عالِم</span></h2>
+              <p>شاهد المحاضرة التعريفية، وخد فكرة أوضح عن الرحلة ومحتواها قبل ما تقدّم لبطلك.</p>
+              <span className="intro-video-duration">المحاضرة التعريفية • دورة عالِم – الدفعة الثالثة</span>
+            </div>
+            <div className="intro-video-frame">
+              {introVideoPlaying ? (
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/ONvdUiG89Bk?autoplay=1&rel=0"
+                  title="المحاضرة التعريفية بدورة عالِم"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="intro-video-poster">
+                  <span className="intro-video-poster-mark"><Icon name="book" size={30} /></span>
+                  <span className="intro-video-poster-label">دورة عالِم • الدفعة الثالثة</span>
+                  <button className="intro-video-play" type="button" onClick={() => setIntroVideoPlaying(true)} aria-label="تشغيل المحاضرة التعريفية">
+                    <Icon name="play" size={27} />
+                  </button>
+                  <span className="intro-video-play-caption">شاهد المحاضرة التعريفية</span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
