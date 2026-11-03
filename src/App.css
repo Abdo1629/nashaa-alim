@@ -704,3 +704,13 @@ body { overflow-x: hidden; }
     color: #ffa817;
   }
 }
+
+/* Keep the decorative challenge-card circle in place, behind all card content. */
+.challenge-card:after {
+  z-index: 0;
+}
+
+.challenge-card > * {
+  position: relative;
+  z-index: 1;
+}
