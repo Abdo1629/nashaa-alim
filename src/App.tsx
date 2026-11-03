@@ -197,14 +197,11 @@ function App() {
             <article className="problem-card"><span className="problem-icon"><Icon name="landmark" size={25} /></span><h3>الصلاة محتاجة متابعة</h3><p>نفسنا الطفل يتعلّق بصلاته ويهتم بيها من قلبه.</p></article>
           </div>
           <div className="insight-card"><span className="insight-icon"><Icon name="sparkle" /></span><p>الطفل مش محتاج أوامر أكتر… محتاج <strong>يفهم، ويقتنع، ويجرّب بنفسه.</strong></p></div>
-              )}
-            </div>
-          </div>
         </div>
       </section>
 
       <section className="section about-section" id="about">
-        <div className="container about-grid">
+<div className="container about-grid">
           <div className="about-visual">
             <div className="intro-video-frame">
               {introVideoPlaying ? (
@@ -240,7 +237,7 @@ function App() {
         </div>
       </section>
 
-      <section className="section journey-section" id="journey">
+<section className="section journey-section" id="journey">
         <div className="container">
           <div className="section-heading centered">
             <span className="eyebrow">رحلة التعلّم</span>
