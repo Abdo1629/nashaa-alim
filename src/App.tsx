@@ -48,6 +48,66 @@ const curriculum = [
   { tag: 'ختام الرحلة', title: 'المراجعة وحفل التتويج', desc: 'يراجع إنجازه مع المشرفين، ويشارك في ختام الرحلة وتكريم الأبطال الملتزمين.' },
 ]
 
+
+const faqGroups = [
+  {
+    id: 'schedule',
+    title: 'المواعيد ومدة الدورة',
+    items: [
+      { q: 'إمتى هتبدأ الدورة وتنتهي؟', a: 'يتم إبلاغ المشتركين بموعد بداية الدورة ونهايتها من خلال قنوات التواصل الرسمية.' },
+      { q: 'مدة الدورة قد إيه؟', a: 'مدة الدورة 6 أسابيع.' },
+      { q: 'كام محاضرة في الدورة؟', a: 'الدورة تتكوّن من 6 محاضرات إجمالًا: محاضرتان مع الشيخ علاء حامد، و4 محاضرات مع المهندس عبدالله صبري.' },
+      { q: 'إيه مواعيد المحاضرات؟ صباحي ولا مسائي؟', a: 'المحاضرات مسائية في الغالب، ويتم إرسال المواعيد المحددة للمشتركين.' },
+      { q: 'هل مواعيد المحاضرات ثابتة؟', a: 'نعم، المواعيد ثابتة بإذن الله، وأي تحديث يعلنه فريق الدورة للمشتركين.' },
+      { q: 'لو المعاد مش مناسب، هل ممكن يتغير؟', a: 'المواعيد المعتمدة ثابتة بإذن الله؛ لذلك يُرجى مراجعة الجدول المرسل قبل الاشتراك، والتواصل مع الإدارة في حالة وجود ظرف خاص.' },
+    ],
+  },
+  {
+    id: 'lectures',
+    title: 'المحاضرات والمحتوى',
+    items: [
+      { q: 'المحاضرات مباشرة ولا مسجلة؟', a: 'المحاضرات مباشرة في الأيام المتفق عليها، ويتم نشر التسجيلات وأي ملفات أو مواد مرتبطة بالمحاضرة في اليوم التالي.' },
+      { q: 'هنحضر المحاضرات على أي منصة؟', a: 'الحضور المباشر بيكون من خلال منصة Zoom.' },
+      { q: 'هل هيكون فيه فتح للمايك أثناء المحاضرات؟', a: 'محاضرات الشيخ علاء حامد للاستماع فقط. أما محاضرات المهندس عبدالله صبري فهي تفاعلية أحيانًا، وقد يُتاح فتح المايك لعدد محدود من المشاركين حسب تنظيم اللقاء.' },
+      { q: 'لو فاتتنا محاضرة، هل التسجيل هيكون متاح؟', a: 'نعم، تسجيل المحاضرة بيكون متاحًا في اليوم التالي لبثها.' },
+      { q: 'هل هيكون فيه لينك يوتيوب للمحاضرات؟', a: 'المنصة المعتمدة للحضور المباشر هي Zoom، والتسجيلات والمواد المرتبطة بالمحاضرات تُنشر عبر مجموعات WhatsApp وقناة Telegram الخاصة بالدورة. لم يتم تأكيد قناة YouTube بديلة.' },
+      { q: 'هل المحتوى هيكون متاح بعد انتهاء الدورة؟', a: 'نعم، المحتوى بيكون متاحًا من خلال مجموعات WhatsApp وقناة Telegram الخاصة بالدورة.' },
+      { q: 'هل ينفع نكتفي بمحاضرات الشيخ علاء حامد فقط؟', a: 'الأفضل حضور جميع المحاضرات؛ لأن الشيخ علاء حامد والمهندس عبدالله صبري بيكملوا بعض من حيث الجانب الأكاديمي والجانب التطبيقي والتفاعلي.' },
+      { q: 'هل ينفع أختي أو أخويا غير المشترك يحضر معايا؟', a: 'نعم، يمكن لأفراد الأسرة المقيمين في نفس المنزل الاستماع للمحاضرات، لكن المتابعة والحصول على الملفات والمواد التعليمية مقتصران على الفرد المشترك فقط.' },
+    ],
+  },
+  {
+    id: 'assessment',
+    title: 'الاختبارات والتقييم',
+    items: [
+      { q: 'الاختبار هيكون على محاضرات الشيخ علاء وم. عبدالله؟', a: 'الاختبارات على محتوى محاضرات الشيخ علاء حامد فقط.' },
+      { q: 'هل الاختبارات هتكون متاحة في نهاية الدورة؟', a: 'نعم، تُفتح الاختبارات في نهاية الدورة بإذن الله.' },
+      { q: 'هل ينفع الاختبار يفضل مفتوح ومش يتقفل؟', a: 'كل اختبار له وقت ونطاق محددان، وتكون فترة إتاحته في حدود أسبوع تقريبًا. ولا تُفتح جميع الاختبارات من بداية الدورة.' },
+      { q: 'هل فيه اختبار على كل محاضرة؟', a: 'نعم، يوجد اختبار على كل محاضرة من محاضرات الشيخ علاء حامد.' },
+      { q: 'هل ممكن نكتفي باختبارات محاضرات م. علاء؟', a: 'الاختبارات مخصصة لمحتوى محاضرات الشيخ علاء حامد فقط.' },
+    ],
+  },
+  {
+    id: 'homework',
+    title: 'الواجبات والتطبيقات',
+    items: [
+      { q: 'هل فيه واجبات خلال الدورة؟', a: 'نعم، فيه واجبات مرتبطة بمحتوى الدورة.' },
+      { q: 'كام مرة هتكون الواجبات؟', a: 'حسب المحتوى، وبمعدل تقريبي كل يومين إلى ثلاثة أيام.' },
+      { q: 'هل فيه مهام أو تطبيقات عملية بجانب المحاضرات؟', a: 'نعم، فيه مهام وتطبيقات عملية تساعد الطفل يطبّق المعاني والمهارات اللي بيتعلمها.' },
+    ],
+  },
+  {
+    id: 'community',
+    title: 'الجروبات والاشتراك',
+    items: [
+      { q: 'هل الأشقاء ممكن يكونوا في جروب واحد حتى لو اختلفت أعمارهم؟', a: 'تنظيم مجموعات المتابعة بيكون وفق ترتيبات الدورة وطبيعة الفئات العمرية. يُرجى التواصل مع الإدارة لتأكيد إمكانية ضم الأشقاء في مجموعة واحدة.' },
+      { q: 'هل ينفع أكون أنا وابني في نفس الجروب؟', a: 'لا، لأن المتابعة مخصصة للفرد المشترك. ولو المشترك طفل، بيكون فيه جروب خاص بولي الأمر لإبلاغه بمواعيد المحاضرات وأي معلومات مهمة تخص الطفل، وده مختلف عن جروبات الدورة المخصصة للأطفال المشتركين.' },
+      { q: 'هل ينفع أرسل محتوى الدورة لشخص غير مشترك؟', a: 'لا، لا يُسمح بإعادة نشر محتوى الدورة أو مشاركة ملفاتها مع غير المشتركين دون إذن مسبق من الإدارة.' },
+      { q: 'هل ينفع أختي أو أخويا غير المشترك يحضروا معايا؟', a: 'نعم، يمكنهم الاستماع للمحاضرات إذا كانوا مقيمين في نفس المنزل، لكن المتابعة والملفات والمواد التعليمية تظل مقتصرة على الطفل المشترك فقط.' },
+    ],
+  },
+]
+
 const challenges = [
   { icon: 'timer', title: 'أبطال الـ 25 دقيقة', duration: 'حسب الفئة العمرية', desc: 'السن من 7 لـ 10: يذاكر درس بيحبه 25 دقيقة، وبعدها يرسم شخصية تشجعه. والسن من 10 لـ 14: يختار مادة صعبة، ويركز فيها 25 دقيقة، ويكتب جملة تحفيزية ويرسم بطل الإرادة.' },
   { icon: 'heart', title: 'وبالوالدين إحسانًا', duration: '5 أيام', desc: 'خمسة أيام من التطبيق العملي: ترك التأفف، وخفض الصوت، والكلام الطيب، والمبادرة بخدمة في البيت، والدعاء للوالدين.' },
@@ -81,6 +141,8 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [showOpening, setShowOpening] = useState(true)
   const [introVideoPlaying, setIntroVideoPlaying] = useState(false)
+  const [faqSearch, setFaqSearch] = useState('')
+  const [openFaq, setOpenFaq] = useState<string | null>(null)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -92,6 +154,10 @@ function App() {
   }, [])
 
   const closeMenu = () => setMenuOpen(false)
+  const filteredFaqGroups = faqGroups.map((group) => ({
+    ...group,
+    items: group.items.filter((item) => `${item.q} ${item.a}`.includes(faqSearch.trim())),
+  })).filter((group) => group.items.length > 0)
 
   useEffect(() => {
     if (!menuOpen) return
@@ -149,6 +215,7 @@ function App() {
             <a href="#journey" onClick={closeMenu}>رحلة التعلّم</a>
             <a href="#challenges" onClick={closeMenu}>التحديات</a>
             <a href="#impact" onClick={closeMenu}>تجارب المشاركين</a>
+            <a href="#faq" onClick={closeMenu}>الأسئلة الشائعة</a>
             <RegisterLink className="button button-small">قدّم لبطلك</RegisterLink>
           </nav>
         </div>
@@ -242,7 +309,7 @@ function App() {
           <div className="section-heading centered">
             <span className="eyebrow">رحلة التعلّم</span>
             <h2>محطات بتبني <span className="highlight-word">عالِمًا صغيرًا</span></h2>
-            <p>بنبدأ بلقاء افتتاحي، وبعده 7 محاضرات تفاعلية بتاخد الطفل خطوة بخطوة.</p>
+            <p>رحلة من المحطات التعليمية والتطبيقية اللي بتاخد الطفل خطوة بخطوة لبناء العلم والهمة والأدب.</p>
           </div>
           <article className="opening-meeting-card"><span className="journey-tag">اللقاء الافتتاحي</span><h3>{openingMeeting.title}</h3><p>{openingMeeting.desc}</p></article>
           <div className="journey-grid">
@@ -291,8 +358,8 @@ function App() {
             <span className="eyebrow">صحبة وتوجيه</span><h2>مين هيكون مع <span className="highlight-word">الأبطال</span>؟</h2>
           </div>
           <div className="mentor-grid">
-            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-blue">ع</div><div><span className="mentor-role">الإشراف العام</span><h3>م. علاء حامد</h3><p>المشرف العام على مبادرة «نشء لنحيا بنور» وبرامج البناء التربوي والإيماني للنشء.</p></div></article>
-            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-orange">ع</div><div><span className="mentor-role">التقديم والمصاحبة التربوية</span><h3>م. عبدالله صبري عبدالمولى</h3><p>مهندس كهرباء باور – جامعة الأزهر، ويقدّم المعاني الإيمانية بأسلوب قصصي وتحديات قريبة من عالم الأطفال.</p></div></article>
+            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-blue">ع</div><div><span className="mentor-role">الإشراف العام • محاضرتان</span><h3>الشيخ علاء حامد</h3><p>يقدّم محاضرتين ضمن الدورة، ويركّز محتواهما على الجانب الأكاديمي والتأصيلي.</p></div></article>
+            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-orange">ع</div><div><span className="mentor-role">التقديم والمصاحبة التربوية • 4 محاضرات</span><h3>م. عبدالله صبري عبدالمولى</h3><p>يقدّم أربع محاضرات تفاعلية وتطبيقية، ويقرّب المعاني والمهارات بأسلوب يناسب عالم الأطفال.</p></div></article>
           </div>
         </div>
       </section>
@@ -323,6 +390,79 @@ function App() {
               <p>«كان نفسي الدورة دي تفضل طول السنة مع الأولاد».</p>
               <span className="testimonial-source">ولي أمر أحد المشاركين</span>
             </article>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="section faq-section" id="faq">
+        <div className="container">
+          <div className="faq-layout">
+            <aside className="faq-intro">
+              <span className="eyebrow">كل اللي محتاج تعرفه</span>
+              <h2>لسه عندك <span className="highlight-word">سؤال؟</span></h2>
+              <p>جمعنالك أهم التفاصيل عن المواعيد والمحاضرات والاختبارات والمتابعة، عشان تكون الصورة واضحة قبل التقديم.</p>
+              <div className="faq-stats">
+                <div><strong>6</strong><span>محاضرات إجمالًا</span></div>
+                <div><strong>6</strong><span>أسابيع</span></div>
+                <div><strong>2 + 4</strong><span>توزيع المحاضرات</span></div>
+              </div>
+              <RegisterLink>قدّم لبطلك الآن</RegisterLink>
+            </aside>
+            <div className="faq-content">
+              <label className="faq-search-label" htmlFor="faq-search">دوّر على سؤالك</label>
+              <input
+                id="faq-search"
+                className="faq-search"
+                type="search"
+                value={faqSearch}
+                onChange={(event) => setFaqSearch(event.target.value)}
+                placeholder="اكتب كلمة أو سؤال..."
+                autoComplete="off"
+              />
+              <div className="faq-groups">
+                {filteredFaqGroups.map((group) => (
+                  <section className="faq-group" key={group.id} aria-label={group.title}>
+                    <div className="faq-group-heading">
+                      <h3>{group.title}</h3>
+                      <span>{group.items.length} أسئلة</span>
+                    </div>
+                    <div className="faq-list">
+                      {group.items.map((item, index) => {
+                        const itemId = `${group.id}-${index}`
+                        const isOpen = openFaq === itemId
+                        return (
+                          <article className={isOpen ? 'faq-item active' : 'faq-item'} key={item.q}>
+                            <button
+                              type="button"
+                              aria-expanded={isOpen}
+                              aria-controls={`faq-answer-${itemId}`}
+                              onClick={() => setOpenFaq(isOpen ? null : itemId)}
+                            >
+                              <span>{item.q}</span>
+                              <i className={isOpen ? 'faq-toggle-icon active' : 'faq-toggle-icon'}>
+                                <Icon name={isOpen ? 'minus' : 'plus'} size={15} />
+                              </i>
+                            </button>
+                            <div id={`faq-answer-${itemId}`} className={isOpen ? 'faq-answer is-open' : 'faq-answer'} aria-hidden={!isOpen}>
+                              <div className="faq-answer-inner"><p>{item.a}</p></div>
+                            </div>
+                          </article>
+                        )
+                      })}
+                    </div>
+                  </section>
+                ))}
+                {filteredFaqGroups.length === 0 && (
+                  <div className="faq-empty" role="status">
+                    <strong>ملقيناش سؤال مطابق</strong>
+                    <p>جرّب كلمة تانية أو تواصل مع فريق الدورة عشان يساعدك.</p>
+                    <button type="button" onClick={() => setFaqSearch('')}>مسح البحث</button>
+                  </div>
+                )}
+              </div>
+              <p className="faq-note">بعض التفاصيل التنظيمية النهائية، زي مواعيد اللقاءات، بيتم إرسالها للمشتركين مباشرة.</p>
+            </div>
           </div>
         </div>
       </section>
