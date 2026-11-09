@@ -248,8 +248,8 @@ function App() {
 
   const closeMenu = () => setMenuOpen(false)
   const normalizedFaqQuery = normalizeArabic(faqSearch)
-  const isApplicationSearch = /(التقديم|تقديم|التسجيل|استماره|فورم|اشتراك|لينك|رابط|اسجل|سجل|اشترك)/.test(normalizedFaqQuery)
-    && !/(محاضره|محاضرات|ريكورد|تسجيلات)/.test(normalizedFaqQuery)
+  const isApplicationSearch = /(التقديم|تقديم|التسجيل|استماره|فورم|اشتراك|اسجل|سجل|اشترك)/.test(normalizedFaqQuery)
+    || (/(لينك|رابط)/.test(normalizedFaqQuery) && !/(محاضره|محاضرات|ريكورد|تسجيلات|زوم|يوتيوب|تيليجرام)/.test(normalizedFaqQuery))
   const filteredFaqGroups = faqGroups.map((group) => ({
     ...group,
     items: group.items
