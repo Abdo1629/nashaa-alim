@@ -156,8 +156,8 @@ function normalizeArabic(value: string) {
     .replace(/ة/g, 'ه')
     .replace(/[ؤئ]/g, 'ء')
     .replace(/[٠-٩]/g, (digit) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(digit)))
-    .replace(/[^\\p{L}\\p{N}\\s]/gu, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
     .trim()
 }
 
@@ -274,18 +274,24 @@ function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, history: nextMessages.slice(-11, -1) }),
+        signal: AbortSignal.timeout(26000),
       })
-      const data = await response.json()
+      const data = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(data.error || 'تعذر الاتصال بالمساعد')
       setChatMessages((current) => [...current, {
         role: 'model',
         text: data.reply || 'معلش، ممكن تعيد صياغة سؤالك؟',
         showApplyButton: Boolean(data.showApplyButton),
       }])
-    } catch {
+    } catch (error) {
+      const errorMessage = error instanceof Error && error.name === 'TimeoutError'
+        ? 'الرد اتأخر عن الوقت المحدد. جرّب مرة تانية بعد قليل.'
+        : error instanceof Error && error.message && error.message !== 'Failed to fetch'
+          ? error.message
+          : 'حصلت مشكلة في الاتصال بالمساعد دلوقتي. جرّب كمان شوية، أو راجع الأسئلة الشائعة الموجودة في الصفحة.'
       setChatMessages((current) => [...current, {
         role: 'model',
-        text: 'حصلت مشكلة في الاتصال بالمساعد دلوقتي. جرّب كمان شوية، أو راجع الأسئلة الشائعة الموجودة في الصفحة.',
+        text: errorMessage,
       }])
     } finally {
       setChatLoading(false)
