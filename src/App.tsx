@@ -374,7 +374,7 @@ function App() {
             <p className="hero-lead">رحلة تربوية وعملية تساعد ابنك يحب العلم، وينظّم وقته، ويعتز بدينه وأخلاقه.</p>
             <div className="hero-tags"><span>للأولاد والبنات</span><span>من 7 إلى 14 سنة</span><span>أونلاين بالكامل</span></div>
             <div className="hero-actions"><RegisterLink>سجّل بيانات بطلك</RegisterLink><a className="text-link" href="#about">اكتشف تفاصيل الرحلة <span>↓</span></a></div>
-            <div className="hero-trust"><span className="trust-stars"><Icon name="sparkle" size={15} /></span><span>تقديم وإشراف م. علاء حامد وم. عبدالله صبري عبدالمولى</span></div>
+            <div className="hero-trust"><span className="trust-stars"><Icon name="sparkle" size={15} /></span><span>تقديم م. علاء حامد وم. عبدالله صبري عبدالمولى</span></div>
           </div>
           <div className="hero-art" aria-label="رسم تعليمي لكتاب ومصباح وأدوات تعلم" role="img">
             <div className="art-orbit orbit-a" /><div className="art-orbit orbit-b" />
@@ -502,8 +502,8 @@ function App() {
             <span className="eyebrow">صحبة وتوجيه</span><h2>مين هيكون مع <span className="highlight-word">الأبطال</span>؟</h2>
           </div>
           <div className="mentor-grid">
-            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-blue">ع</div><div><span className="mentor-role">التقديم والإشراف • محاضرتان</span><h3>الشيخ علاء حامد</h3><p>يقدّم محاضرتين ضمن الدورة، ويركّز محتواهما على الجانب الأكاديمي والتأصيلي.</p></div></article>
-            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-orange">ع</div><div><span className="mentor-role">التقديم والإشراف • 4 محاضرات</span><h3>م. عبدالله صبري عبدالمولى</h3><p>يقدّم أربع محاضرات تفاعلية وتطبيقية، ويقرّب المعاني والمهارات بأسلوب يناسب عالم الأطفال.</p></div></article>
+            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-blue">ع</div><div><span className="mentor-role">• محاضرتان</span><h3>الشيخ علاء حامد</h3><p>يقدّم محاضرتين ضمن الدورة، ويركّز محتواهما على الجانب الأكاديمي والتأصيلي.</p></div></article>
+            <article className="mentor-card"><div className="mentor-avatar mentor-avatar-orange">ع</div><div><span className="mentor-role">• 4 محاضرات</span><h3>م. عبدالله صبري عبدالمولى</h3><p>يقدّم أربع محاضرات تفاعلية وتطبيقية، ويقرّب المعاني والمهارات بأسلوب يناسب عالم الأطفال.</p></div></article>
           </div>
         </div>
       </section>
