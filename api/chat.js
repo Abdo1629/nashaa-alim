@@ -62,13 +62,13 @@ export default async function handler(req, res) {
     })).filter((item) => item.parts[0].text) : [];
 
     const contents = [...history, { role: 'user', parts: [{ text: message }] }];
-    const upstream = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', {
+    const upstream = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
         contents,
-        generationConfig: { temperature: 0.35, maxOutputTokens: 650 },
+        generationConfig: { maxOutputTokens: 650 },
       }),
     });
 
