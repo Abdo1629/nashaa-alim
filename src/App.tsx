@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import './App.css'
 
-const FORM_URL = ''
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSewPnXjRJDRecr-h509nAcVe_CGwV8tEjpjIuDTngG_m9YMsA/viewform?usp=publish-editor'
 
 const iconPaths: Record<string, ReactNode> = {
   timer: <><circle cx="12" cy="13" r="8.5" /><path d="M12 8v5l3 2M9 2h6M12 2v2M19 5l1.5-1.5" /></>,
@@ -26,6 +26,10 @@ const iconPaths: Record<string, ReactNode> = {
   sparkle: <><path d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3Z" /></>,
   play: <><path d="m8 5 11 7-11 7V5Z" fill="currentColor" stroke="none" /></>,
   quote: <><path d="M3 11h7v7H3zM14 11h7v7h-7z" /><path d="M10 11c0-4 1.5-6 4-7M21 11c0-4 1.5-6 3-7" /></>,
+  chat: <><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 0 1 10.5 7H12" /><path d="M16 3v6m-3-3h6" /></>,
+  send: <><path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" /></>,
+  bot: <><rect x="4" y="7" width="16" height="13" rx="4" /><path d="M12 3v4M9 13h.01M15 13h.01M9 17h6M2 12h2m16 0h2" /></>,
+  close: <><path d="m6 6 12 12M18 6 6 18" /></>,
 }
 
 function Icon({ name, size = 22, className = '' }: { name: string; size?: number; className?: string }) {
@@ -55,6 +59,7 @@ const faqGroups = [
     title: 'المواعيد ومدة الدورة',
     items: [
       { q: 'إمتى هتبدأ الدورة وتنتهي؟', a: 'يتم إبلاغ المشتركين بموعد بداية الدورة ونهايتها من خلال قنوات التواصل الرسمية.' },
+      { q: 'إزاي أقدّم؟ وإمتى التسجيل؟', a: 'التقديم بيكون من خلال استمارة Google Forms الموجودة في أزرار التقديم بالموقع. أما موعد فتح أو إغلاق التسجيل بالتحديد فلم يتم تحديده ضمن المعلومات المتاحة؛ تقدر تفتح الاستمارة وتشوف التفاصيل المعلنة فيها.' },
       { q: 'مدة الدورة قد إيه؟', a: 'مدة الدورة 6 أسابيع.' },
       { q: 'كام محاضرة في الدورة؟', a: 'الدورة تتكوّن من 6 محاضرات إجمالًا: محاضرتان مع الشيخ علاء حامد، و4 محاضرات مع المهندس عبدالله صبري.' },
       { q: 'كام مرة في الأسبوع؟', a: 'إجمالي الدورة 6 محاضرات على مدار 6 أسابيع، وتُرسل تفاصيل توزيع اللقاءات ومواعيدها في الجدول الرسمي للمشتركين.' },
@@ -111,6 +116,85 @@ const faqGroups = [
   },
 ]
 
+
+const FAQ_SEARCH_ALIASES: Record<string, string[]> = {
+  'إمتى هتبدأ الدورة وتنتهي؟': ['امتى تبدأ الدورة', 'موعد بداية الكورس', 'امتى تنتهي الدورة', 'بداية ونهاية الدورة', 'موعد الدورة'],
+  'إزاي أقدّم؟ وإمتى التسجيل؟': ['امتى التسجيل', 'متى التقديم', 'ميعاد التقديم', 'مواعيد التسجيل', 'وقت التقديم', 'التقديم مفتوح', 'رابط التسجيل', 'لينك التقديم', 'استمارة الاشتراك', 'ازاي اشترك', 'فين الفورم'],
+  'مدة الدورة قد إيه؟': ['الدورة كام اسبوع', 'عدد اسابيع الكورس', 'مدة البرنامج'],
+  'كام محاضرة في الدورة؟': ['عدد اللقاءات', 'عدد السيشنز', 'كام درس', 'محاضرات علاء وعبدالله', 'توزيع المحاضرين'],
+  'كام مرة في الأسبوع؟': ['عدد المحاضرات اسبوعيا', 'كل اسبوع كام لقاء', 'جدول الاسبوع'],
+  'إيه أيام بث اللايف؟': ['ايام الزوم', 'مواعيد البث المباشر', 'امتى اللايف'],
+  'إيه مواعيد المحاضرات؟ صباحي ولا مسائي؟': ['المحاضرات بالليل', 'ميعاد الزوم', 'صباح ولا مساء'],
+  'هل مواعيد المحاضرات ثابتة؟': ['الجدول ثابت', 'المواعيد بتتغير'],
+  'لو المعاد مش مناسب، هل ممكن يتغير؟': ['تغيير موعد المحاضرة', 'تعارض المواعيد', 'مش هقدر احضر في الميعاد'],
+  'المحاضرات مباشرة ولا مسجلة؟': ['لايف ولا ريكورد', 'بث مباشر او تسجيل', 'المحاضرة اونلاين'],
+  'هنحضر المحاضرات على أي منصة؟': ['زوم ولا تليجرام', 'لينك المحاضرات', 'منصة الحضور'],
+  'هل هيكون فيه فتح للمايك أثناء المحاضرات؟': ['الميكروفون مفتوح', 'اقدر اتكلم', 'المشاركة بالصوت'],
+  'لو فاتتنا محاضرة، هل التسجيل هيكون متاح؟': ['فاتتني المحاضرة', 'اعادة المحاضرة', 'اشوف المحاضرة بعدين'],
+  'هل هيكون فيه لينك يوتيوب للمحاضرات؟': ['يوتيوب', 'مشاكل زوم', 'بديل زوم'],
+  'هل المحتوى هيكون متاح بعد انتهاء الدورة؟': ['التسجيلات بعد الكورس', 'المحتوى يفضل موجود', 'الوصول للمحاضرات بعدين'],
+  'هل ينفع نكتفي بمحاضرات الشيخ علاء حامد فقط؟': ['احضر محاضرات علاء بس', 'هل عبدالله ضروري', 'اكتفي بمحاضر واحد'],
+  'هل ينفع أختي أو أخويا غير المشترك يحضر معايا؟': ['حد من البيت يسمع', 'اخويا يحضر', 'اختي تسمع معايا'],
+  'الاختبار هيكون على محاضرات الشيخ علاء وم. عبدالله؟': ['الامتحان على مين', 'اختبار عبدالله', 'محتوى الاختبار'],
+  'هل الاختبارات هتكون متاحة في نهاية الدورة؟': ['الامتحانات اخر الكورس', 'فتح الاختبار في النهاية'],
+  'هل ينفع الاختبار يفضل مفتوح ومش يتقفل؟': ['مدة الاختبار', 'الامتحان يقفل امتى', 'وقت حل الاختبار'],
+  'هل فيه اختبار على كل محاضرة؟': ['امتحان بعد كل درس', 'عدد الاختبارات'],
+  'هل ممكن نكتفي باختبارات محاضرات م. علاء؟': ['اختبارات علاء فقط', 'امتحان المحاضرات'],
+  'هل فيه واجبات خلال الدورة؟': ['تكليفات', 'هوم وورك', 'فيه شغل بعد المحاضرة'],
+  'كام مرة هتكون الواجبات؟': ['مواعيد الواجبات', 'كل كام يوم واجب'],
+  'هل الواجبات مرتبطة بكل محاضرة؟': ['واجب لكل درس', 'التكليفات على ايه'],
+  'هل فيه مهام أو تطبيقات عملية بجانب المحاضرات؟': ['تطبيق عملي', 'انشطة ومهام', 'مشاريع صغيرة'],
+  'هل الأشقاء ممكن يكونوا في جروب واحد حتى لو اختلفت أعمارهم؟': ['الاخوات في نفس المجموعة', 'اخوات باعمار مختلفة', 'جروب واحد للاشقاء'],
+  'هل ينفع أكون أنا وابني في نفس الجروب؟': ['ولي الامر مع الطفل في جروب', 'جروب الامهات والابناء', 'متابعة ولي الامر'],
+  'هل ينفع أرسل محتوى الدورة لشخص غير مشترك؟': ['مشاركة الملفات', 'ابعت التسجيل لصاحبي', 'نشر محتوى الكورس'],
+}
+
+function normalizeArabic(value: string) {
+  return value.toLocaleLowerCase('ar')
+    .replace(/[ًٌٍَُِّْـٰ]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/[ؤئ]/g, 'ء')
+    .replace(/[٠-٩]/g, (digit) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(digit)))
+    .replace(/[^\\p{L}\\p{N}\\s]/gu, ' ')
+    .replace(/\\s+/g, ' ')
+    .trim()
+}
+
+const SEARCH_SYNONYMS: Array<[RegExp, string]> = [
+  [/^(امتي|متي|متي|ميعاد|ميعاد|موعد|مواعيد|وقت|اوقات)$/, 'وقت'],
+  [/^(التقديم|تقديم|التسجيل|سجل|اسجل|اشترك|اشتراك|استماره|فورم|لينك|رابط)$/, 'تقديم'],
+  [/^(محاضره|محاضرات|لقاء|لقاءات|سيشن|سيشنز|درس|دروس)$/, 'محاضرة'],
+  [/^(مسجل|مسجله|تسجيلات|ريكورد|ريكوردات)$/, 'تسجيل'],
+  [/^(لايف|مباشر|مباشره|بث)$/, 'مباشر'],
+  [/^(زوم|zoom)$/, 'zoom'],
+  [/^(مايك|ميك|ميكروفون|الصوت)$/, 'مايك'],
+  [/^(امتحان|امتحانات|اختبار|اختبارات)$/, 'اختبار'],
+  [/^(واجب|واجبات|تكليف|تكليفات|هومورك)$/, 'واجب'],
+  [/^(جروب|جروبات|مجموعة|مجموعات)$/, 'مجموعة'],
+  [/^(اخ|اخويا|اخت|اختي|اشقاء|اخوات)$/, 'اشقاء'],
+]
+
+function searchTokens(value: string) {
+  return normalizeArabic(value).split(' ').filter(Boolean).map((token) => {
+    const synonym = SEARCH_SYNONYMS.find(([pattern]) => pattern.test(token))
+    return synonym?.[1] ?? token
+  })
+}
+
+function faqSearchScore(query: string, corpus: string) {
+  const queryTokens = [...new Set(searchTokens(query))]
+  if (!queryTokens.length) return 1
+  const corpusTokens = new Set(searchTokens(corpus))
+  const matched = queryTokens.filter((token) => corpusTokens.has(token)).length
+  const coverage = matched / queryTokens.length
+  const normalizedQuery = normalizeArabic(query)
+  const normalizedCorpus = normalizeArabic(corpus)
+  const phraseBonus = normalizedQuery.length > 3 && normalizedCorpus.includes(normalizedQuery) ? 0.5 : 0
+  return coverage + phraseBonus
+}
+
 const challenges = [
   { icon: 'timer', title: 'أبطال الـ 25 دقيقة', duration: 'حسب الفئة العمرية', desc: 'السن من 7 لـ 10: يذاكر درس بيحبه 25 دقيقة، وبعدها يرسم شخصية تشجعه. والسن من 10 لـ 14: يختار مادة صعبة، ويركز فيها 25 دقيقة، ويكتب جملة تحفيزية ويرسم بطل الإرادة.' },
   { icon: 'heart', title: 'وبالوالدين إحسانًا', duration: '5 أيام', desc: 'خمسة أيام من التطبيق العملي: ترك التأفف، وخفض الصوت، والكلام الطيب، والمبادرة بخدمة في البيت، والدعاء للوالدين.' },
@@ -127,7 +211,7 @@ const tools = [
 ]
 
 function RegisterLink({ children, className = 'button button-orange' }: { children: ReactNode; className?: string }) {
-  return <a className={className} href={FORM_URL || '#register'}>{children}<Icon name="arrow" size={16} /></a>
+  return <a className={className} href={FORM_URL} target="_blank" rel="noreferrer">{children}<Icon name="arrow" size={16} /></a>
 }
 
 function BrandMark({ light = false }: { light?: boolean }) {
@@ -146,6 +230,13 @@ function App() {
   const [introVideoPlaying, setIntroVideoPlaying] = useState(false)
   const [faqSearch, setFaqSearch] = useState('')
   const [openFaq, setOpenFaq] = useState<string | null>(null)
+  const [chatOpen, setChatOpen] = useState(false)
+  const [chatInput, setChatInput] = useState('')
+  const [chatLoading, setChatLoading] = useState(false)
+  const [chatMessages, setChatMessages] = useState<Array<{ role: 'user' | 'model'; text: string; showApplyButton?: boolean }>>([
+    { role: 'model', text: 'أهلًا بيك في نشء! 🌟 أنا مساعد دورة عالِم. اسألني عن المحاضرات أو المواعيد أو الاختبارات أو المتابعة، وهساعدك تعرف التفاصيل.' },
+  ])
+  const chatScrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -157,10 +248,50 @@ function App() {
   }, [])
 
   const closeMenu = () => setMenuOpen(false)
+  const normalizedFaqQuery = normalizeArabic(faqSearch)
+  const isApplicationSearch = /\\b(التقديم|تقديم|التسجيل|استماره|فورم|اشتراك|لينك|رابط)\\b/.test(normalizedFaqQuery)
+    && !/(محاضره|محاضرات|ريكورد|تسجيلات)/.test(normalizedFaqQuery)
   const filteredFaqGroups = faqGroups.map((group) => ({
     ...group,
-    items: group.items.filter((item) => `${item.q} ${item.a}`.includes(faqSearch.trim())),
+    items: group.items
+      .map((item) => ({
+        ...item,
+        score: faqSearch.trim()
+          ? faqSearchScore(faqSearch, `${group.title} ${item.q} ${item.a} ${(FAQ_SEARCH_ALIASES[item.q] ?? []).join(' ')}`)
+          : 1,
+      }))
+      .filter((item) => !faqSearch.trim() || item.score >= (searchTokens(faqSearch).length > 1 ? 0.5 : 0.75))
+      .sort((a, b) => b.score - a.score),
   })).filter((group) => group.items.length > 0)
+  const handleChatSend = async (suggestion?: string) => {
+    const text = (suggestion ?? chatInput).trim()
+    if (!text || chatLoading) return
+    const nextMessages = [...chatMessages, { role: 'user' as const, text }]
+    setChatMessages(nextMessages)
+    setChatInput('')
+    setChatLoading(true)
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: nextMessages.slice(-11, -1) }),
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'تعذر الاتصال بالمساعد')
+      setChatMessages((current) => [...current, {
+        role: 'model',
+        text: data.reply || 'معلش، ممكن تعيد صياغة سؤالك؟',
+        showApplyButton: Boolean(data.showApplyButton),
+      }])
+    } catch {
+      setChatMessages((current) => [...current, {
+        role: 'model',
+        text: 'حصلت مشكلة في الاتصال بالمساعد دلوقتي. جرّب كمان شوية، أو راجع الأسئلة الشائعة الموجودة في الصفحة.',
+      }])
+    } finally {
+      setChatLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (!menuOpen) return
@@ -424,6 +555,12 @@ function App() {
                 autoComplete="off"
               />
               <div className="faq-groups">
+                {isApplicationSearch && (
+                  <div className="faq-apply-result">
+                    <div><strong>بتدور على التقديم أو التسجيل؟</strong><p>استمارة التقديم من هنا. موعد فتح أو إغلاق التسجيل غير محدد في المعلومات المتاحة.</p></div>
+                    <a href={FORM_URL} target="_blank" rel="noreferrer">افتح الاستمارة <Icon name="arrow" size={14} /></a>
+                  </div>
+                )}
                 {filteredFaqGroups.map((group) => (
                   <section className="faq-group" key={group.id} aria-label={group.title}>
                     <div className="faq-group-heading">
@@ -480,6 +617,37 @@ function App() {
           <small>للأولاد والبنات من 7 إلى 14 سنة • أونلاين بالكامل</small>
         </div>
       </section>
+
+      <div className="nashaa-chat-widget" dir="rtl">
+        {chatOpen && <section className="nashaa-chat-panel" aria-label="مساعد نشء الذكي">
+          <header className="nashaa-chat-header">
+            <div className="nashaa-chat-avatar"><Icon name="bot" size={22} /></div>
+            <div className="nashaa-chat-heading"><strong>مساعد نشء</strong><span><i /> متاح لمساعدتك</span></div>
+            <button type="button" className="nashaa-chat-close" onClick={() => setChatOpen(false)} aria-label="إغلاق المحادثة"><Icon name="close" size={18} /></button>
+          </header>
+          <div className="nashaa-chat-messages" ref={chatScrollRef} role="log" aria-live="polite">
+            {chatMessages.map((message, index) => <div className={message.role === 'user' ? 'nashaa-chat-message user' : 'nashaa-chat-message assistant'} key={index}>
+              <p>{message.text}</p>
+              {message.showApplyButton && <a className="nashaa-chat-apply" href={FORM_URL} target="_blank" rel="noreferrer">افتح استمارة التقديم <Icon name="arrow" size={14} /></a>}
+            </div>)}
+            {chatMessages.length === 1 && !chatLoading && <div className="nashaa-chat-suggestions">
+              <button type="button" onClick={() => handleChatSend('الدورة فيها كام محاضرة ومين هيقدمها؟')}>عدد المحاضرات والمحاضرين</button>
+              <button type="button" onClick={() => handleChatSend('إزاي أقدّم؟ ابعتلي رابط التسجيل')}>رابط التقديم</button>
+              <button type="button" onClick={() => handleChatSend('المحاضرات بتكون مباشرة ولا مسجلة؟')}>نظام المحاضرات</button>
+            </div>}
+            {chatLoading && <div className="nashaa-chat-message assistant typing"><span /><span /><span /></div>}
+          </div>
+          <form className="nashaa-chat-composer" onSubmit={(event) => { event.preventDefault(); void handleChatSend() }}>
+            <input value={chatInput} onChange={(event) => setChatInput(event.target.value)} placeholder="اكتب سؤالك هنا..." aria-label="اكتب سؤالك للمساعد" maxLength={1200} />
+            <button type="submit" disabled={!chatInput.trim() || chatLoading} aria-label="إرسال السؤال"><Icon name="send" size={18} /></button>
+          </form>
+          <div className="nashaa-chat-disclaimer">مساعد آلي لمعلومات الدورة • التفاصيل النهائية من إدارة نشء</div>
+        </section>}
+        <button type="button" className={chatOpen ? 'nashaa-chat-launcher is-open' : 'nashaa-chat-launcher'} onClick={() => setChatOpen(!chatOpen)} aria-label={chatOpen ? 'إغلاق مساعد نشء' : 'اسأل مساعد نشء'}>
+          <Icon name={chatOpen ? 'close' : 'chat'} size={25} />
+          {!chatOpen && <span>اسأل مساعد نشء</span>}
+        </button>
+      </div>
 
       <footer className="site-footer">
         <div className="container footer-main"><BrandMark light /><p>نزرع قيمة… ونبني همة… ونحيا بنور.</p><a href="https://www.instagram.com/lenahyabnor/" target="_blank" rel="noreferrer">@lenahyabnor <Icon name="arrow" size={13} /></a></div>
