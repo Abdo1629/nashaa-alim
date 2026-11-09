@@ -82,7 +82,7 @@ export default async function handler(req, res) {
     const reply = result?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('').trim();
     if (!reply) return sendJson(res, 502, { error: 'وصل رد غير مكتمل من المساعد. جرّب مرة تانية.' });
 
-    const registrationIntent = /(التقديم|تقديم|التسجيل|استمارة|فورم|اشترك|اشتراك|رابط|لينك|ابعتلي|ابعت الرابط)/i.test(message)
+    const registrationIntent = /(التقديم|تقديم|التسجيل|استمارة|فورم|سجل|اسجل|اشترك|اشتراك|رابط|لينك|ابعتلي|ابعت الرابط)/i.test(message)
       && !/(تسجيل المحاضرات|تسجيلات المحاضرات|المحاضرة المسجلة)/i.test(message);
 
     return sendJson(res, 200, { reply, showApplyButton: registrationIntent });
