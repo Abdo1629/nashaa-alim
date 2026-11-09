@@ -82,8 +82,10 @@ export default async function handler(req, res) {
     const reply = result?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('').trim();
     if (!reply) return sendJson(res, 502, { error: 'وصل رد غير مكتمل من المساعد. جرّب مرة تانية.' });
 
-    const registrationIntent = /(التقديم|تقديم|التسجيل|استمارة|فورم|سجل|اسجل|اشترك|اشتراك|رابط|لينك|ابعتلي|ابعت الرابط)/i.test(message)
-      && !/(تسجيل المحاضرات|تسجيلات المحاضرات|المحاضرة المسجلة)/i.test(message);
+    const hasRegistrationWords = /(التقديم|تقديم|التسجيل|استمارة|فورم|سجل|اسجل|اشترك|اشتراك)/i.test(message);
+    const hasGenericLinkRequest = /(رابط|لينك|ابعتلي|ابعت الرابط)/i.test(message)
+      && !/(محاضرة|محاضرات|زوم|يوتيوب|تيليجرام|تسجيلات)/i.test(message);
+    const registrationIntent = hasRegistrationWords || hasGenericLinkRequest;
 
     return sendJson(res, 200, { reply, showApplyButton: registrationIntent });
   } catch (error) {
