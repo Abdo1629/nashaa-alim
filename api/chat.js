@@ -62,9 +62,10 @@ export default async function handler(req, res) {
     })).filter((item) => item.parts[0].text) : [];
 
     const contents = [...history, { role: 'user', parts: [{ text: message }] }];
-    const upstream = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent', {
+    const upstream = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+      signal: AbortSignal.timeout(20000),
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
         contents,
@@ -74,8 +75,8 @@ export default async function handler(req, res) {
 
     if (!upstream.ok) {
       const errorBody = await upstream.text();
-      console.error('Gemini API error:', upstream.status, errorBody.slice(0, 500));
-      return sendJson(res, 502, { error: 'المساعد مش قادر يرد دلوقتي. جرّب مرة تانية بعد قليل.' });
+      console.error('Gemini API error:', upstream.status, errorBody.slice(0, 1000));
+      return sendJson(res, 502, { error: `خدمة Gemini رجّعت خطأ (${upstream.status}). راجع إعداد الموديل وحالة المفتاح في Vercel.` });
     }
 
     const result = await upstream.json();
@@ -90,6 +91,9 @@ export default async function handler(req, res) {
     return sendJson(res, 200, { reply, showApplyButton: registrationIntent });
   } catch (error) {
     console.error('Chat API failed:', error);
+    if (error?.name === 'TimeoutError' || error?.name === 'AbortError') {
+      return sendJson(res, 504, { error: 'استجابة Gemini اتأخرت وانتهت مهلة الطلب. جرّب مرة تانية.' });
+    }
     return sendJson(res, 500, { error: 'حصل خطأ غير متوقع. حاول مرة تانية.' });
   }
 }
