@@ -29,7 +29,6 @@ const iconPaths: Record<string, ReactNode> = {
   chat: <><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 0 1 10.5 7H12" /><path d="M16 3v6m-3-3h6" /></>,
   send: <><path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" /></>,
   bot: <><rect x="4" y="7" width="16" height="13" rx="4" /><path d="M12 3v4M9 13h.01M15 13h.01M9 17h6M2 12h2m16 0h2" /></>,
-  close: <><path d="m6 6 12 12M18 6 6 18" /></>,
 }
 
 function Icon({ name, size = 22, className = '' }: { name: string; size?: number; className?: string }) {
@@ -249,7 +248,7 @@ function App() {
 
   const closeMenu = () => setMenuOpen(false)
   const normalizedFaqQuery = normalizeArabic(faqSearch)
-  const isApplicationSearch = /\\b(التقديم|تقديم|التسجيل|استماره|فورم|اشتراك|لينك|رابط)\\b/.test(normalizedFaqQuery)
+  const isApplicationSearch = /(التقديم|تقديم|التسجيل|استماره|فورم|اشتراك|لينك|رابط|اسجل|سجل|اشترك)/.test(normalizedFaqQuery)
     && !/(محاضره|محاضرات|ريكورد|تسجيلات)/.test(normalizedFaqQuery)
   const filteredFaqGroups = faqGroups.map((group) => ({
     ...group,
@@ -292,6 +291,11 @@ function App() {
       setChatLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (!chatOpen) return
+    chatScrollRef.current?.scrollTo({ top: chatScrollRef.current.scrollHeight, behavior: 'smooth' })
+  }, [chatMessages, chatLoading, chatOpen])
 
   useEffect(() => {
     if (!menuOpen) return
