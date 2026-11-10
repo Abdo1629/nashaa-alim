@@ -854,7 +854,7 @@ body { overflow-x: hidden; }
 
 /* Introductory lecture fills the exact footprint of the original About visual card. */
 .about-visual { min-height: 0; display: block; }
-.about-visual .intro-video-frame { position: relative; width: min(100%, 390px); aspect-ratio: 39 / 38; margin-inline: auto; overflow: hidden; border: 6px solid #fff; border-radius: 28px; background: #153f7d; box-shadow: 0 24px 50px rgba(20, 55, 105, .18); }
+.about-visual .intro-video-frame { position: relative; width: min(100%, 390px); aspect-ratio: 16 / 9; margin-inline: auto; overflow: hidden; border: 6px solid #fff; border-radius: 28px; background: #153f7d; box-shadow: 0 24px 50px rgba(20, 55, 105, .18); }
 .about-visual .intro-video-frame iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
 .intro-video-poster { position: absolute; inset: 0; display: flex; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; gap: 14px; overflow: hidden; color: #fff5e4; background-image: linear-gradient(180deg, rgba(10, 31, 61, .18), rgba(10, 31, 61, .52)), url("/data/landing-banner.png"); background-size: cover; background-position: center; background-repeat: no-repeat; }
 .intro-video-poster::before, .intro-video-poster::after { content: ""; position: absolute; border: 1px solid rgba(255, 245, 228, .16); border-radius: 50%; pointer-events: none; }
@@ -869,7 +869,7 @@ body { overflow-x: hidden; }
 .intro-video-play-caption { position: relative; z-index: 1; color: #fff; font-size: 11px; font-weight: 700; }
 @media(max-width:700px) {
   .about-visual { min-height: 0; }
-  .about-visual .intro-video-frame { width: min(100%, 390px); aspect-ratio: 39 / 38; border-width: 3px; border-radius: 17px; }
+  .about-visual .intro-video-frame { width: min(100%, 390px); aspect-ratio: 16 / 9; border-width: 3px; border-radius: 17px; }
   .intro-video-play { width: 56px; height: 56px; }
   .intro-video-poster-mark { width: 43px; height: 43px; border-radius: 13px; }
   .intro-video-poster-mark svg { width: 24px; height: 24px; }
